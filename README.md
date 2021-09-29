@@ -1,2 +1,2 @@
 # NetBanking-Basico
-Practica final aspnetcore curso
+Practica final ASP.NET Core curso
