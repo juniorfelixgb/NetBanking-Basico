@@ -1,27 +1,53 @@
 ﻿@page
 @model NetBanking.UI.Pages.Authenticate.RegisterModel
 @{
-    ViewData["Title"] = "Nueva Cuenta";
+    ViewData["Title"] = "Nuevo Usuario";
 }
 
 <div class="row pt-3">
     <a href="/">
         <h1 class="font-weight-bold">NetBanking</h1>
     </a>
-    <div class="col-6 pt-5">
+    <div class="col-6 pt-3">
         <img src="~/img/login-background.svg" alt="Fondo del login" class="img-fluid" />
     </div>
     <div class="col-6">
         <div class="card">
             <div class="card-header">
                 <h2>
-                    <strong>Nueva Cuenta</strong>
+                    <strong>Nuevo Usuario</strong>
                 </h2>
                 <small>Ingresa tus datos e inicia con nosotros.</small>
             </div>
             <div class="card-body">
                 <form>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div class="form-outline">
+                                <input type="tel" id="form3Example1" class="form-control" />
+                                <label class="form-label" for="form3Example1">Nombre</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input type="tel" id="form3Example2" class="form-control" />
+                                <label class="form-label" for="form3Example2">Apellido</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="form-label" for="form1Example1">Fecha Nacimiento</label>
+                    <div class="form-outline mb-4">
+                        <input type="date" id="form1Example1" class="form-control" data-mdb-format="ddd,dd,mmm,yyyy" />
+                    </div>
+
                     <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form1Example1" class="form-control" />
+                        <label class="form-label" for="form1Example1">Correo Electronico</label>
+                    </div>
+
+                    <!-- User input -->
                     <div class="form-outline mb-4">
                         <input type="email" id="form1Example1" class="form-control" />
                         <label class="form-label" for="form1Example1">Usuario</label>
@@ -31,6 +57,12 @@
                     <div class="form-outline mb-4">
                         <input type="password" id="form1Example2" class="form-control" />
                         <label class="form-label" for="form1Example2">Contraseña</label>
+                    </div>
+
+                    <!-- Confirm Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form1Example2" class="form-control" />
+                        <label class="form-label" for="form1Example2">Confirmar Contraseña</label>
                     </div>
 
                     <!-- 2 column grid layout for inline styling -->
