@@ -58,7 +58,7 @@ UsuarioID int not null constraint FK_Retiros_UsuarioID foreign key references Us
 EstadoID int not null constraint FK_Retiros_EstadoID foreign key references EstadoTRD(EstadoID),
 AlisCuenta varchar(100),
 Monto decimal(35,2) not null default 0.0,
-Fecha datetime,
+Fecha datetime not null,
 Detalles varchar(max)
 )
 go
@@ -70,7 +70,7 @@ UsuarioID int not null constraint FK_Depositos_UsuarioID foreign key references 
 EstadoID int not null constraint FK_Depositos_EstadoID foreign key references EstadoTRD(EstadoID),
 AlisCuenta varchar(100),
 Monto decimal(35,2) not null default 0.0,
-Fecha datetime,
+Fecha datetime not null,
 Detalles varchar(max)
 )
 go
@@ -81,7 +81,9 @@ RetiroID int not null constraint FK_Transacciones_RetiroID foreign key reference
 DepositoID int not null constraint FK_Transacciones_DepositoID foreign key references Depositos(DepositoID),
 EstadoID int not null constraint FK_Transacciones_EstadoID foreign key references EstadoTRD(EstadoID),
 CostoTransferencia decimal(15,15) not null default 0.0,
+Fecha datetime not null,
 MonedaCambioID int constraint FK_Transacciones_MonedaCambioID foreign key references MonedaCambios(MonedaCambioID),
+Detalles varchar(max)
 )
 
 
