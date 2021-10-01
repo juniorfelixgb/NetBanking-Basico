@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetBanking.DATA.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace NetBanking.UI
 {
     public class Startup
     {
+        const string NET_BANKING_CONNECTION = "NetBankingConnection";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +26,7 @@ namespace NetBanking.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddDbContext<netbankingContext>(options => options.UseSqlServer(Configuration.GetConnectionString(NET_BANKING_CONNECTION)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
