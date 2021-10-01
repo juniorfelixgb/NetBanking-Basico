@@ -20,16 +20,16 @@
                 <small>Autenticate para continuar</small>
             </div>
             <div class="card-body">
-                <form>
+                <form method="post" >
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form1Example1" class="form-control" />
+                        <input type="email" id="form1Example1" class="form-control"  asp-for="Ususario"/>
                         <label class="form-label" for="form1Example1">Usuario</label>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control" />
+                        <input type="password" id="form1Example2" class="form-control"  asp-for="Password"/>
                         <label class="form-label" for="form1Example2">Contraseña</label>
                     </div>
 
