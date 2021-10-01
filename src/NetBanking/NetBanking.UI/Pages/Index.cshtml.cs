@@ -12,6 +12,11 @@ namespace NetBanking.UI.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
+        [BindProperty]
+        public string Ususario { get; set; }
+        [BindProperty] 
+        public string Password { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -21,5 +26,6 @@ namespace NetBanking.UI.Pages
         {
 
         }
+        
     }
 }
