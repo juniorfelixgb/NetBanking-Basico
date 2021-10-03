@@ -1,0 +1,113 @@
+﻿@page
+@model NetBanking.UI.Pages.DashboardModel
+@{
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="#"> Netbanking </a>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Transferencia">Transferencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-page="/Historico">Movimientos</a>
+                </li>
+            </ul>
+            <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <!-- Notifications -->
+            <a class="text-reset me-3 dropdown-toggle hidden-arrow"
+               href="#"
+               id="navbarDropdownMenuLink"
+               role="button"
+               data-mdb-toggle="dropdown"
+               aria-expanded="false">
+                <i class="fas fa-bell"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" href="#">Some news</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Another news</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+
+            </ul>
+
+            <!-- Avatar -->
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+               href="#"
+               id="navbarDropdownMenuLink"
+               role="button"
+               data-mdb-toggle="dropdown"
+               aria-expanded="false">
+                <img src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                     class="rounded-circle"
+                     height="25"
+                     alt=""
+                     loading="lazy" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+<div class="row p-5 d-flex justify-items-center">
+    <div class="col-md-7">
+        <div class="w-50">
+            <h2>Hola, <span>name</span></h2>
+            <div class="container-sm shadow-4 p-4 rounded">
+                <h4 class="text-info">Balance:</h4>
+                <h3>$</h3>
+                <span>Disponible</span>
+                <br />
+                <a 
+                   asp-page="/Transferencia"
+                   class="btn btn-outline-primary mt-2"
+                   data-mdb-ripple-color="dark">
+                    Transferir fondos
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <br />
+        <h4 class="text-dark mt-3">Actividades recientes</h4>
+        <ul class="list-group w-50">
+            <li class="list-group-item">Cras justo odio</li>
+        </ul>
+    </div>
+</div>
