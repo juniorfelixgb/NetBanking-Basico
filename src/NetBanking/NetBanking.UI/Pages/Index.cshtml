@@ -21,16 +21,19 @@
             </div>
             <div class="card-body">
                 <form method="post" >
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form1Example1" class="form-control"  asp-for="Ususario"/>
-                        <label class="form-label" for="form1Example1">Usuario</label>
+                        <input type="email" id="form1Example1" class="form-control"  asp-for="_Credenciales.Usuario"/>
+                        <label class="form-label" for="form1Example1" asp-for="_Credenciales.Usuario"></label>
+                        <span class="text-danger" asp-validation-for="_Credenciales.Usuario"></span>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control"  asp-for="Password"/>
-                        <label class="form-label" for="form1Example2">Contraseña</label>
+                        <input type="password" id="form1Example2" class="form-control" asp-for="_Credenciales.Password" />
+                        <label class="form-label" for="form1Example2" asp-for="_Credenciales.Password"></label>
+                        <span class="text-danger" asp-validation-for="_Credenciales.Password"></span>
                     </div>
 
                     <!-- 2 column grid layout for inline styling -->

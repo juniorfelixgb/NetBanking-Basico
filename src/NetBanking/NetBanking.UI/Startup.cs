@@ -25,8 +25,21 @@ namespace NetBanking.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //services.AddSession();
             services.AddDbContext<netbankingContext>(options => options.UseSqlServer(Configuration.GetConnectionString(NET_BANKING_CONNECTION)));
+            services.AddAuthentication("AUT").AddCookie("AUT",op=> 
+            { 
+                op.Cookie.Name = "AUT"; 
+                op.LoginPath = "/Index";
+                op.AccessDeniedPath = "/Authenticate/AccessDenied"; 
+            });
+            //services.AddAuthorization(
+            //    op => 
+            //    {
+            //        op.AddPolicy("Administradores", p=>p.RequireClaim("Admin"));
+            //        op.AddPolicy("SoloRRHH", opt => opt.RequireClaim("Departamento", "RRHH"));
+            //    });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,10 +54,12 @@ namespace NetBanking.UI
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

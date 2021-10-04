@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NetBanking.Core;
+using NetBanking.Logica;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace NetBanking.UI.Pages
 {
@@ -13,9 +17,7 @@ namespace NetBanking.UI.Pages
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
-        public string Ususario { get; set; }
-        [BindProperty] 
-        public string Password { get; set; }
+        public Credenciales _Credenciales { get; set; } 
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -24,8 +26,29 @@ namespace NetBanking.UI.Pages
 
         public void OnGet()
         {
-
+            _Credenciales = new Credenciales();
         }
-        
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                Login login = new Login();
+                if (login.LoginIN(_Credenciales))
+                {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, _Credenciales.Usuario),
+                        new Claim("Departamento","RRHH")
+                    };
+                    var identity = new ClaimsIdentity(claims, "AUT");
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+                    await HttpContext.SignInAsync("AUT", claimsPrincipal);
+
+                    return RedirectToPage("/Privacy");
+                }
+            }
+            return Page();
+        }
+
     }
 }

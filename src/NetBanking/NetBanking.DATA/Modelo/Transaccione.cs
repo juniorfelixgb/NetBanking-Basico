@@ -12,7 +12,9 @@ namespace NetBanking.DATA.Modelo
         public int DepositoId { get; set; }
         public int EstadoId { get; set; }
         public decimal CostoTransferencia { get; set; }
+        public DateTime? Fecha { get; set; }
         public int? MonedaCambioId { get; set; }
+        public string Detalles { get; set; }
 
         public virtual Deposito Deposito { get; set; }
         public virtual EstadoTrd Estado { get; set; }

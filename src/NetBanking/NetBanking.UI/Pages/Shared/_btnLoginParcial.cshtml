@@ -1,0 +1,13 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <form method="post" class="form-check-inline" asp-page="/Authenticate/Logout">
+        Bienvenido @User.Identity.Name
+        <button type="submit" class="btn btn-link">Cerrar Sesion</button>
+    </form>
+}
+else
+{
+    <a class="btn btn-link" asp-page="/Index">Iniciar Sesion</a>
+}
+
+
