@@ -18,13 +18,21 @@ namespace NetBanking.UI.Pages.Authenticate
         {
             _Usuario = new Usuario();
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            using (var db = new netbankingContext())
+            try
             {
-                db.Usuarios.Add(_Usuario);
-                db.SaveChanges();
+                using (var db = new netbankingContext())
+                {
+                    db.Usuarios.Add(_Usuario);
+                    db.SaveChanges();
+                    return RedirectToPage("/Index");
+                }
+
             }
+            catch (Exception )
+            {    }
+            return Page();
         }
     }
 }

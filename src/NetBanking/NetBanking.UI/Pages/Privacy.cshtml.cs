@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace NetBanking.UI.Pages
 {
-    //[Authorize]
-    [Authorize(Policy = "SoloRRHH")]
+    //[Authorize(Policy = "SoloRRHH")]
+    [Authorize]
     public class PrivacyModel : PageModel
     {
         private readonly ILogger<PrivacyModel> _logger;
@@ -21,9 +21,6 @@ namespace NetBanking.UI.Pages
         }
 
         public void OnGet()
-        {
-        }
-        public void OnGet(string b)
         {
         }
     }
