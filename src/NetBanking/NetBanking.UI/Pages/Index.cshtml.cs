@@ -38,7 +38,7 @@ namespace NetBanking.UI.Pages
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, _Credenciales.Usuario),
-                        new Claim("Departamento","RRHH")
+                        //new Claim("Departamento","RRHH")
                     };
                     var identity = new ClaimsIdentity(claims, "AUT");
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
