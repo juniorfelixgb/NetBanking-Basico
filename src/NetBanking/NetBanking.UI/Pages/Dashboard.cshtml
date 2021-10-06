@@ -37,7 +37,7 @@
         <div class="d-flex align-items-center">
             <!-- Icon -->
             <!-- Notifications -->
-            <a class="text-reset me-3 dropdown-toggle hidden-arrow"
+            @*<a class="text-reset me-3 dropdown-toggle hidden-arrow"
                href="#"
                id="navbarDropdownMenuLink"
                role="button"
@@ -57,7 +57,8 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </li>
 
-            </ul>
+            </ul>*@
+
 
             <!-- Avatar -->
             <a class="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -66,11 +67,11 @@
                role="button"
                data-mdb-toggle="dropdown"
                aria-expanded="false">
-                <img src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                     class="rounded-circle"
-                     height="25"
-                     alt=""
-                     loading="lazy" />
+                <img src="~/img/icono-Usuario.png"
+                class="rounded-circle"
+                height="25"
+                alt=""
+                loading="lazy" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuLink">
@@ -87,14 +88,25 @@
 
 <div class="row p-5 d-flex justify-items-center">
     <div class="col-md-7">
-        <h2>Cuentas  <span>name</span></h2>
+        <h2>Todas Las Cuentas  </h2>
         <div class="w-100">
             <div class="container-sm shadow-4 p-4 rounded">
                 <h4 class="text-info">Cuenta: 58490098546</h4>
-                <h3>Balance: $ 3000.87</h3>
-                <span>Disponible</span>
-                <br />
-                <a asp-page="/Transferencia"
+                <h5 class="w-100 d-flex justify-content-between"><span class="text-start col">Balance: $ 3000.87 </span><span class="text-success text-end col">Disponible</span></h5>
+
+                <a asp-page="/Historico"
+                   class="btn btn-outline-primary mt-2"
+                   data-mdb-ripple-color="dark">
+                    Transferir fondos
+                </a>
+            </div>
+        </div>
+        <div class="w-100">
+            <div class="container-sm shadow-4 p-4 rounded">
+                <h4 class="text-info">Cuenta: 58490098546</h4>
+                <h5 class="w-100 d-flex justify-content-between"><span class="text-start col">Balance: $ 3000.87 </span><span class="text-success text-end col">Disponible</span></h5>
+
+                <a asp-page="/Historico"
                    class="btn btn-outline-primary mt-2"
                    data-mdb-ripple-color="dark">
                     Transferir fondos
