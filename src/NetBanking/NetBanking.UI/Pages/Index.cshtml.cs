@@ -17,7 +17,8 @@ namespace NetBanking.UI.Pages
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
-        public Credenciales _Credenciales { get; set; } 
+        public Credenciales _Credenciales { get; set; }
+        public bool Incorreto { get; set; } 
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -27,6 +28,7 @@ namespace NetBanking.UI.Pages
         public void OnGet()
         {
             _Credenciales = new Credenciales();
+            Incorreto = false;
         }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -38,13 +40,20 @@ namespace NetBanking.UI.Pages
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, _Credenciales.Usuario),
-                        //new Claim("Departamento","RRHH")
+                        new Claim("NombreApellido",_Credenciales.NombreApellido)
                     };
                     var identity = new ClaimsIdentity(claims, "AUT");
-                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-                    await HttpContext.SignInAsync("AUT", claimsPrincipal);
 
-                    return RedirectToPage("/Privacy");
+                    var autPropiedades = new AuthenticationProperties() 
+                    { IsPersistent = _Credenciales.Recordarme};
+
+                    await HttpContext.SignInAsync("AUT", new ClaimsPrincipal(identity), autPropiedades);
+
+                    return RedirectToPage("/Dashboard");
+                }
+                else
+                {
+                    Incorreto = true;
                 }
             }
             return Page();

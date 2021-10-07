@@ -4,34 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NetBanking.Core;
 using NetBanking.DATA.Modelo;
+using NetBanking.Logica;
 
 namespace NetBanking.UI.Pages.Authenticate
 {
     public class RegisterModel : PageModel
     {
         [BindProperty]
-        public Usuario _Usuario { get; set; }
-        [BindProperty]
-        public string PasswordCheck { get; set; }
+        public newUsuario _Usuario { get; set; }
         public void OnGet()
         {
-            _Usuario = new Usuario();
+            _Usuario = new newUsuario();
         }
         public IActionResult OnPost()
         {
-            try
+            if (new Login().RegistroNewUsuario(_Usuario))
             {
-                using (var db = new netbankingContext())
-                {
-                    db.Usuarios.Add(_Usuario);
-                    db.SaveChanges();
-                    return RedirectToPage("/Index");
-                }
-
+                return RedirectToPage("/Index");
             }
-            catch (Exception )
-            {    }
             return Page();
         }
     }

@@ -22,47 +22,62 @@
             <div class="card-body">
                 <form method="post" >
                     <div class="row mb-4">
+                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Cedula" />
+                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Cedula"> </label>
+                                <span class="text-danger" asp-validation-for="_Usuario.Cedula"></span>
+                            </div>
+                        </div>
                         <div class="col">
                             <div class="form-outline">
                                 <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Nombres" />
-                                <label class="form-label" for="form3Example1"> Nombre</label>
+                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Nombres"> </label>
+                                <span class="text-danger" asp-validation-for="_Usuario.Nombres"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
                                 <input type="text" id="form3Example2" class="form-control" asp-for="_Usuario.Apellidos"/>
-                                <label class="form-label" for="form3Example2" >Apellido</label>
+                                <label class="form-label" for="form3Example2" asp-for="_Usuario.Apellidos"></label>
+                                <span class="text-danger" asp-validation-for="_Usuario.Apellidos"></span>
                             </div>
                         </div>
                     </div>
 
-                    <label class="form-label" for="form1Example1">Fecha Nacimiento</label>
-                    <div class="form-outline mb-4">
-                        <input type="date" id="form1Example1" class="form-control" data-mdb-format="dd,mm,yyyy" asp-for="_Usuario.FechaNacimiento"/>
+                    <label class="form-label" for="form1Example1"  asp-for="_Usuario.FechaNacimiento"></label>
+                    <div class="form-outline mb-4 datepicker">
+                        <input type="date" id="form1Example1" class="form-control" data-mdb-format="ddd,dd,mm,yyyy" asp-for="_Usuario.FechaNacimiento" />
+                        <span class="text-danger" asp-validation-for="_Usuario.FechaNacimiento"></span>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input type="email" id="form1Example1" class="form-control" asp-for="_Usuario.Email" />
-                        <label class="form-label" for="form1Example1">Correo Electronico</label>
+                        <label class="form-label" for="form1Example1" asp-for="_Usuario.Email"></label>
+                        <span class="text-danger" asp-validation-for="_Usuario.Email"></span>
                     </div>
 
                     <!-- User input -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="form1Example1" class="form-control"  asp-for="_Usuario.NombreUsuario"/>
-                        <label class="form-label" for="form1Example1">Usuario</label>
+                        <input type="text" id="form1Example1" class="form-control" asp-for="_Usuario.NombreUsuario" />
+                        <label class="form-label" for="form1Example1" asp-for="_Usuario.NombreUsuario"></label>
+                        <span class="text-danger" asp-validation-for="_Usuario.NombreUsuario"></span>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control" asp-for="_Usuario.Contrasena"/>
-                        <label class="form-label" for="form1Example2">Contraseña</label>
+                        <input type="password" id="form1Example2" class="form-control" asp-for="_Usuario.Password" />
+                        <label class="form-label" for="form1Example2" asp-for="_Usuario.Password"></label>
+                        <span class="text-danger" asp-validation-for="_Usuario.Password"></span>
                     </div>
 
                     <!-- Confirm Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control" asp-for="PasswordCheck" />
-                        <label class="form-label" for="form1Example2">Confirmar Contraseña</label>
+                        <input type="password" id="form1Example2" class="form-control" asp-for="_Usuario.CheckPassword" />
+                        <label class="form-label" for="form1Example2" asp-for="_Usuario.CheckPassword"></label>
+                        <span class="text-danger" asp-validation-for="_Usuario.CheckPassword"></span>
                     </div>
 
                    @* <!-- 2 column grid layout for inline styling -->

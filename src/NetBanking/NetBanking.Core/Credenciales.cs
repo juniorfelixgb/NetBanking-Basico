@@ -9,11 +9,15 @@ namespace NetBanking.Core
 {
     public class Credenciales
     {
-        [Required]
+
+        [Required(ErrorMessage = "Campo Obligatorio.")]
         public string Usuario { get; set; }
-        [Required] 
+
+        [Required(ErrorMessage = "Campo Obligatorio.")]
         [Display(Name = "Contraseña")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public bool Recordarme { get; set; }
+        public string NombreApellido { get; set; }
     }
 }
