@@ -31,7 +31,8 @@ namespace NetBanking.UI
             { 
                 op.Cookie.Name = "AUT"; 
                 op.LoginPath = "/Index";
-                op.AccessDeniedPath = "/Authenticate/AccessDenied"; 
+                op.AccessDeniedPath = "/Authenticate/AccessDenied";
+                op.ExpireTimeSpan = TimeSpan.FromMinutes(20);
             });
             //services.AddAuthorization(
             //    op => 
