@@ -26,44 +26,44 @@
                         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                         <div class="col">
                             <div class="form-outline">
-                                <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Cedula" />
-                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Cedula"> </label>
+                                <input type="text" id="cedula" class="form-control" asp-for="_Usuario.Cedula" />
+                                <label class="form-label" for="cedula" asp-for="_Usuario.Cedula"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Cedula"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
-                                <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Nombres" />
-                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Nombres"> </label>
+                                <input type="text" id="Nom" class="form-control" asp-for="_Usuario.Nombres" />
+                                <label class="form-label" for="Nom" asp-for="_Usuario.Nombres"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Nombres"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-outline">
-                                <input type="text" id="form3Example2" class="form-control" asp-for="_Usuario.Apellidos" />
-                                <label class="form-label" for="form3Example2" asp-for="_Usuario.Apellidos"></label>
+                                <input type="text" id="Ape" class="form-control" asp-for="_Usuario.Apellidos" />
+                                <label class="form-label" for="Ape" asp-for="_Usuario.Apellidos"></label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Apellidos"></span>
                             </div>
                         </div>
                     </div>
 
-                    <label class="form-label" for="form1Example1" asp-for="_Usuario.FechaNacimiento"></label>
+                    <label class="form-label" for="fechaNacimiento" asp-for="_Usuario.FechaNacimiento"></label>
                     <div class="form-outline mb-4 datepicker">
-                        <input type="date" id="form1Example1" class="form-control" asp-for="_Usuario.FechaNacimiento" />
+                        <input type="date" id="fechaNacimiento" class="form-control" asp-for="_Usuario.FechaNacimiento" />
                         <span class="text-danger" asp-validation-for="_Usuario.FechaNacimiento"></span>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form1Example1" class="form-control" asp-for="_Usuario.Email" />
-                        <label class="form-label" for="form1Example1" asp-for="_Usuario.Email"></label>
+                        <input type="email" id="Email" class="form-control" asp-for="_Usuario.Email" />
+                        <label class="form-label" for="Email" asp-for="_Usuario.Email"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.Email"></span>
                     </div>
 
                     <!-- User input -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="form1Example1" class="form-control" asp-for="_Usuario.NombreUsuario" />
-                        <label class="form-label" for="form1Example1" asp-for="_Usuario.NombreUsuario"></label>
+                        <input type="text" id="usuario" class="form-control" asp-for="_Usuario.NombreUsuario" />
+                        <label class="form-label" for="usuario" asp-for="_Usuario.NombreUsuario"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.NombreUsuario"></span>
                     </div>
 
@@ -76,8 +76,8 @@
 
                     <!-- Confirm Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control" asp-for="_Usuario.CheckPassword" />
-                        <label class="form-label" for="form1Example2" asp-for="_Usuario.CheckPassword"></label>
+                        <input type="password" id="form1Example" class="form-control" asp-for="_Usuario.CheckPassword" />
+                        <label class="form-label" for="form1Example" asp-for="_Usuario.CheckPassword"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.CheckPassword"></span>
                     </div>
 
@@ -118,9 +118,8 @@
 <script src="~/js/mc-calendar.min.js"></script>
 <script type="text/javascript">
     const myDatePicker = MCDatepicker.create({
-        el: '#form1Example1',
+        el: '#fechaNacimiento', dateFormat: 'YYYY-MM-DD',
         maxDate: new Date(2019, 11, 25),
-        dateFormat: 'dd-MM-yyyy',
         customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
         customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
         customOkBTN: 'OK',
