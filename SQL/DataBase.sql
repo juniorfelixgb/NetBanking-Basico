@@ -45,7 +45,7 @@ CuentaID int identity constraint PK_Cuentas primary key,
 MonedaID int not null constraint FK_Cuentas_MonedaID foreign key references Monedas(MonedaID),
 UsuarioID int not null constraint FK_Cuentas_UsuarioID foreign key references Usuarios(UsuarioID),
 AlisCuenta varchar(100),
-NumeroCuenta varchar(100) not null,
+NumeroCuenta varchar(100) not null unique,
 MontoDisponible decimal(38,2) not null default 0.0,
 MontoTrancito decimal(38,2) not null default 0.0
 )
@@ -86,9 +86,16 @@ MonedaCambioID int constraint FK_Transacciones_MonedaCambioID foreign key refere
 Detalles varchar(max)
 )
 go
+
+
+alter table Cuentas add constraint CHK_MondoDiponible_minimo check (MontoDisponible >= 0)
+go
+alter table Cuentas add constraint UQ_NumeroCuenta unique (NumeroCuenta)
+go
  
 CREATE PROCEDURE Transferir  
-    @InputCandidateID INT  
+    @NumeroCuentaRetiro VARCHAR(100) , 
+    @NumeroCuentaDeposito VARCHAR(100),  
 AS  
     -- Detect whether the procedure was called  
     -- from an active transaction and save  
@@ -99,6 +106,15 @@ AS
     -- @TranCounter > 0 means an active  
     -- transaction was started before the   
     -- procedure was called.  
+	--- Detectar si se llamó al procedimiento
+ --   - de una transacción activa y guardar
+ --   - eso para uso posterior.
+ --   - En el procedimiento, @TranCounter = 0
+ --   - significa que no hubo una transacción activa
+ --   - y el procedimiento inició uno.
+ --   - @TranCounter> 0 significa un activo
+ --   - la transacción se inició antes de la
+ --   - se llamó al procedimiento.
     DECLARE @TranCounter INT;  
     SET @TranCounter = @@TRANCOUNT;  
     IF @TranCounter > 0  
@@ -107,11 +123,19 @@ AS
         -- Create a savepoint to be able  
         -- to roll back only the work done  
         -- in the procedure if there is an  
-        -- error.  
+        -- error.
+		--- Procedimiento llamado cuando hay
+  --      - una transacción activa.
+  --      - Crea un punto de guardado para poder
+  --      - para revertir solo el trabajo realizado
+  --      - en el procedimiento si hay un
+  --      -- error.
         SAVE TRANSACTION ProcedureSave;  
     ELSE  
         -- Procedure must start its own  
         -- transaction.  
+		--- El procedimiento debe comenzar por sí mismo
+  --      - transacción.
         BEGIN TRANSACTION;  
     -- Modify database.  
     BEGIN TRY  
