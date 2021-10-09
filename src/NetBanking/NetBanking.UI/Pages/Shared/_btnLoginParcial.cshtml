@@ -1,0 +1,95 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar brand -->
+                <a class="navbar-brand mt-2 mt-lg-0" asp-page="/Dashboard"> Netbanking </a>
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Transferencia">Transferencia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Historico">Movimientos</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+            <!-- Right elements -->
+            <div class="d-flex align-items-center">
+                <!-- Icon -->
+                <!-- Notifications -->
+                @*<a class="text-reset me-3 dropdown-toggle hidden-arrow"
+           href="#"
+           id="navbarDropdownMenuLink"
+           role="button"
+           data-mdb-toggle="dropdown"
+           aria-expanded="false">
+            <i class="fas fa-bell"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink">
+            <li>
+                <a class="dropdown-item" href="#">Some news</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Another news</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+
+        </ul>*@
+
+                Hola, @User.Claims.FirstOrDefault(p => p.Type == "NombreApellido").Value
+                &nbsp;&nbsp;&nbsp;
+                <!-- Avatar -->
+                <a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                   href="#"
+                   id="navbarDropdownMenuLink"
+                   role="button"
+                   data-mdb-toggle="dropdown"
+                   aria-expanded="false">
+                    <img src="~/img/icono-Usuario.png"
+                         class="rounded-circle"
+                         height="25"
+                         alt=""
+                         loading="lazy" />
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdownMenuLink">
+                    <li>
+                        <form method="post" class="form-check-inline" asp-page="/Authenticate/Logout">
+                            <input type="submit" class="dropdown-item" value="Cerrar Sesión">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- Right elements -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+}
+else
+{
+    @*<a class="btn btn-link" asp-page="/Index">Iniciar Sesion</a>*@
+}
+
+

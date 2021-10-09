@@ -7,17 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace NetBanking.UI.Pages
 {
-    public class TransferenciaModel : PageModel
+    public class TransferenciaDestinoModel : PageModel
     {
-        public bool NoEncontrado { get; set; }
         public void OnGet()
         {
-
-        }
-
-        public int BuscarCuenta(int cuenta)
-        {
-            return 1;
         }
     }
 }

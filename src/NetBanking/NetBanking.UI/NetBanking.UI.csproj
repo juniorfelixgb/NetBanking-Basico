@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Pages\Dashboard\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Pages\Dashboard\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Pages\Dashboard\**" />
+    <None Remove="Data\**" />
+    <None Remove="Pages\Dashboard\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
@@ -14,11 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\NetBanking.Core\NetBanking.Core.csproj" />
     <ProjectReference Include="..\NetBanking.DATA\NetBanking.DATA.csproj" />
+    <ProjectReference Include="..\NetBanking.Logica\NetBanking.Logica.csproj" />
   </ItemGroup>
 
 </Project>

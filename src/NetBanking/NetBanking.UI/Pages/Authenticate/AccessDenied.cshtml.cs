@@ -5,19 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace NetBanking.UI.Pages
+namespace NetBanking.UI.Pages.Authenticate
 {
-    public class TransferenciaModel : PageModel
+    public class AccessDeniedModel : PageModel
     {
-        public bool NoEncontrado { get; set; }
         public void OnGet()
         {
-
-        }
-
-        public int BuscarCuenta(int cuenta)
-        {
-            return 1;
         }
     }
 }
