@@ -30,8 +30,7 @@ namespace NetBanking.DATA.Modelo
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=localhost;Database=netbanking;Trusted_Connection=True;");
             }
         }
@@ -42,9 +41,12 @@ namespace NetBanking.DATA.Modelo
 
             modelBuilder.Entity<Cuenta>(entity =>
             {
+                entity.HasIndex(e => e.NumeroCuenta, "UQ_NumeroCuenta")
+                    .IsUnique();
+
                 entity.Property(e => e.CuentaId).HasColumnName("CuentaID");
 
-                entity.Property(e => e.AlisCuenta)
+                entity.Property(e => e.AliasCuenta)
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
@@ -78,19 +80,13 @@ namespace NetBanking.DATA.Modelo
             {
                 entity.Property(e => e.DepositoId).HasColumnName("DepositoID");
 
-                entity.Property(e => e.AlisCuenta)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.CuentaId).HasColumnName("CuentaID");
 
                 entity.Property(e => e.Detalles).IsUnicode(false);
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
 
                 entity.Property(e => e.Monto).HasColumnType("decimal(35, 2)");
 
@@ -121,7 +117,7 @@ namespace NetBanking.DATA.Modelo
 
                 entity.ToTable("EstadoTRD");
 
-                entity.HasIndex(e => e.Estado, "UQ__EstadoTR__36DF552FE7280434")
+                entity.HasIndex(e => e.Estado, "UQ__EstadoTR__36DF552F9485E473")
                     .IsUnique();
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
@@ -134,13 +130,19 @@ namespace NetBanking.DATA.Modelo
 
             modelBuilder.Entity<Moneda>(entity =>
             {
-                entity.HasIndex(e => e.MonedaNombre, "UQ__Monedas__0312CC3CC2679918")
+                entity.HasIndex(e => e.MonedaNombre, "UQ__Monedas__0312CC3C1CB64551")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Simbolo, "UQ__Monedas__090D9EAC677E1284")
+                entity.HasIndex(e => e.Abreviado, "UQ__Monedas__090D9EAC23288B60")
                     .IsUnique();
 
                 entity.Property(e => e.MonedaId).HasColumnName("MonedaID");
+
+                entity.Property(e => e.Abreviado)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.MonedaNombre)
                     .IsRequired()
@@ -149,12 +151,15 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.Simbolo)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(5)
                     .IsUnicode(false);
             });
 
             modelBuilder.Entity<MonedaCambio>(entity =>
             {
+                entity.HasIndex(e => new { e.MonedaIddesde, e.MonedaIdhacia }, "UQ_MonedaIDdesde_MonedaIDhacia")
+                    .IsUnique();
+
                 entity.Property(e => e.MonedaCambioId).HasColumnName("MonedaCambioID");
 
                 entity.Property(e => e.Detalles).IsUnicode(false);
@@ -163,7 +168,7 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.MonedaIdhacia).HasColumnName("MonedaIDhacia");
 
-                entity.Property(e => e.Valor).HasColumnType("decimal(15, 15)");
+                entity.Property(e => e.Valor).HasColumnType("numeric(18, 15)");
 
                 entity.HasOne(d => d.MonedaIddesdeNavigation)
                     .WithMany(p => p.MonedaCambioMonedaIddesdeNavigations)
@@ -182,19 +187,13 @@ namespace NetBanking.DATA.Modelo
             {
                 entity.Property(e => e.RetiroId).HasColumnName("RetiroID");
 
-                entity.Property(e => e.AlisCuenta)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.CuentaId).HasColumnName("CuentaID");
 
                 entity.Property(e => e.Detalles).IsUnicode(false);
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
 
                 entity.Property(e => e.Monto).HasColumnType("decimal(35, 2)");
 
@@ -233,9 +232,7 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Fecha).HasColumnType("datetime");
 
                 entity.Property(e => e.MonedaCambioId).HasColumnName("MonedaCambioID");
 
@@ -267,10 +264,10 @@ namespace NetBanking.DATA.Modelo
 
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.HasIndex(e => e.NombreUsuario, "UQ__Usuarios__6B0F5AE060FCC48F")
+                entity.HasIndex(e => e.NombreUsuario, "UQ__Usuarios__6B0F5AE0C8967613")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Usuarios__A9D1053436E6680E")
+                entity.HasIndex(e => e.Email, "UQ__Usuarios__A9D10534C2886D7D")
                     .IsUnique();
 
                 entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");

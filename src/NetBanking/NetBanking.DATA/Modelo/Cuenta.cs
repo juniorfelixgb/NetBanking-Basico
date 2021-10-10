@@ -16,7 +16,7 @@ namespace NetBanking.DATA.Modelo
         public int CuentaId { get; set; }
         public int MonedaId { get; set; }
         public int UsuarioId { get; set; }
-        public string AlisCuenta { get; set; }
+        public string AliasCuenta { get; set; }
         public string NumeroCuenta { get; set; }
         public decimal MontoDisponible { get; set; }
         public decimal MontoTrancito { get; set; }

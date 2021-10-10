@@ -24,21 +24,21 @@
                 <form method="post">
                     <div class="row mb-4">
                         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
                                 <input type="text" id="cedula" class="form-control" asp-for="_Usuario.Cedula" />
                                 <label class="form-label" for="cedula" asp-for="_Usuario.Cedula"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Cedula"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
                                 <input type="text" id="Nom" class="form-control" asp-for="_Usuario.Nombres" />
                                 <label class="form-label" for="Nom" asp-for="_Usuario.Nombres"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Nombres"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
                                 <input type="text" id="Ape" class="form-control" asp-for="_Usuario.Apellidos" />
                                 <label class="form-label" for="Ape" asp-for="_Usuario.Apellidos"></label>
@@ -46,10 +46,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-outline mb-4 ">
 
-                    <label class="form-label" for="fechaNacimiento" asp-for="_Usuario.FechaNacimiento"></label>
-                    <div class="form-outline mb-4 datepicker">
                         <input type="date" id="fechaNacimiento" class="form-control" asp-for="_Usuario.FechaNacimiento" />
+                        <label class="form-label" for="fechaNacimiento" asp-for="_Usuario.FechaNacimiento"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.FechaNacimiento"></span>
                     </div>
 
@@ -114,14 +114,13 @@
 
 
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/mc-calendar.min.js"></script>
 <script type="text/javascript">
     const myDatePicker = MCDatepicker.create({
         el: '#fechaNacimiento', dateFormat: 'YYYY-MM-DD',
         maxDate: new Date(2019, 11, 25),
         customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
-        customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
         customOkBTN: 'OK',
         customClearBTN: 'CLEAR',
         customCancelBTN: 'CANCEL'

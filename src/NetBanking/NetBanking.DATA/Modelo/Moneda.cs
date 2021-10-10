@@ -17,6 +17,7 @@ namespace NetBanking.DATA.Modelo
         public int MonedaId { get; set; }
         public string MonedaNombre { get; set; }
         public string Simbolo { get; set; }
+        public string Abreviado { get; set; }
 
         public virtual ICollection<Cuenta> Cuenta { get; set; }
         public virtual ICollection<MonedaCambio> MonedaCambioMonedaIddesdeNavigations { get; set; }
