@@ -3,92 +3,66 @@
 @{
 }
 
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <!--<div class="container-fluid">-->
-        <!-- Toggle button -->
-        <!--<button class="navbar-toggler"
-                type="button"
-                data-mdb-toggle="collapse"
-                data-mdb-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>-->
+<!-- Button trigger modal -->
+<button type="button"
+        class="btn btn-primary mt-4"
+        data-mdb-toggle="modal"
+        data-mdb-target="#exampleModal">
+    Add account and money balance
+</button>
 
-        <!-- Collapsible wrapper -->
-        <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-            <!-- Navbar brand -->
-            <!--<a class="navbar-brand mt-2 mt-lg-0" href="#"> Netbanking </a>-->
-            <!-- Left links -->
-            <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Transferencia">Transferencia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Historico">Movimientos</a>
-                </li>
-            </ul>-->
-            <!-- Left links -->
-        <!--</div>-->
-        <!-- Collapsible wrapper -->
-        <!-- Right elements -->
-        <!--<div class="d-flex align-items-center">-->
-            <!-- Icon -->
-            <!-- Notifications -->-->
-            <!--@*<a class="text-reset me-3 dropdown-toggle hidden-arrow"
-                   href="#"
-                   id="navbarDropdownMenuLink"
-                   role="button"
-                   data-mdb-toggle="dropdown"
-                   aria-expanded="false">
-                    <i class="fas fa-bell"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="navbarDropdownMenuLink">
-                    <li>
-                        <a class="dropdown-item" href="#">Some news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Another news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                </ul>*@-->
+<!-- Modal -->
+<div class="modal fade"
+     id="exampleModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add money and account</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <!-- No cuenta -->
+                    <span>No. de cuenta</span>
+                    <div class="form-outline mb-4">
+                        <input type="text" id="NoCuenta" class="form-control" />
+                    </div>
+                    <!-- No Monto -->
+                    <span>Monto</span>
+                    <div class="form-outline mb-4">
+                 
+                        <input type="number" id="Monto" class="form-control" placeholder="$0.00" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                        Guardar
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-            <!-- Avatar -->
-            <!--<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
-               href="#"
-               id="navbarDropdownMenuLink"
-               role="button"
-               data-mdb-toggle="dropdown"
-               aria-expanded="false">
-                <img src="~/img/icono-Usuario.png"
-                     class="rounded-circle"
-                     height="25"
-                     alt=""
-                     loading="lazy" />
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                    <a class="dropdown-item" href="#">Logout</a>
-                </li>
-            </ul>
-        </div>-->
-        <!-- Right elements -->
-    <!--</div>-->
-    <!-- Container wrapper -->
-<!--</nav>-->
-<!-- Navbar -->
+
+
 
 <div class="row p-5 d-flex justify-items-center">
     <div class="col-md-7">
         <h2>Todas Las Cuentas  </h2>
-   
+
         <div class="w-100">
             <div class="container-sm shadow-4 p-4 rounded">
                 <h4 class="text-info">Cuenta: 58490098546</h4>
