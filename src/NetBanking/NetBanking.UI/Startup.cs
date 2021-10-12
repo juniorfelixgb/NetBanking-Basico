@@ -27,6 +27,7 @@ namespace NetBanking.UI
         {
             //services.AddSession();
             services.AddDbContext<netbankingContext>(options => options.UseSqlServer(Configuration.GetConnectionString(NET_BANKING_CONNECTION)));
+            //services.AddScoped<netbankingContext>();
             services.AddAuthentication("AUT").AddCookie("AUT",op=> 
             { 
                 op.Cookie.Name = "AUT"; 

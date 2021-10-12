@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core
 {
-    public class newUsuario
+    public class NC_newUsuario
     {
 
         [Required(ErrorMessage = "Campo Obligatorio.")]

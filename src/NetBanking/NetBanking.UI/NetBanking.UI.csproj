@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetBanking.Core\NetBanking.Core.csproj" />
-    <ProjectReference Include="..\NetBanking.DATA\NetBanking.DATA.csproj" />
     <ProjectReference Include="..\NetBanking.Logica\NetBanking.Logica.csproj" />
   </ItemGroup>
 

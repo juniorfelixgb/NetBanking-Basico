@@ -1,6 +1,6 @@
 ﻿
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100% !important;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
     <link href="~/lib/MDB5-3.9.0/css/mdb.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body style="height: 100% !important;">
     <header>
         @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
@@ -43,12 +43,15 @@
             </nav>*@
 
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container" style="height: 100% !important;">
+        <div class="">
             <partial name="_btnLoginParcial" />
+        </div>
+        <div style="height: 90% !important; overflow-y: scroll; overflow-x: hidden;">
             @RenderBody()
-        </main>
+        </div>
     </div>
+
 
     @*<footer class="border-top footer text-muted">
             <div class="container">
@@ -62,19 +65,23 @@
     <script src="~/lib/MDB5-3.9.0/js/mdb.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
-    <script>
-    const datepickerTranslated = document.querySelector('.datepicker-translated');
-        new mdb.Datepicker(datepickerTranslated, {
-            title: 'Datum auswählen',
-            monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
-            monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
-            weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-            weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-            weekdaysNarrow: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-            okBtnText: 'Ok',
-            clearBtnText: 'Limpiar',
-            cancelBtnText: 'Cancelar',
-        });</script>*@
-    @await RenderSectionAsync("Scripts", required: false)
+        <script>
+        const datepickerTranslated = document.querySelector('.datepicker-translated');
+            new mdb.Datepicker(datepickerTranslated, {
+                title: 'Datum auswählen',
+                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
+                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                weekdaysNarrow: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                okBtnText: 'Ok',
+                clearBtnText: 'Limpiar',
+                cancelBtnText: 'Cancelar',
+            });</script>*@
+    @if (IsSectionDefined("Scripts"))
+    {
+        //@RenderSection("Scripts", required: true)
+        @await RenderSectionAsync("Scripts", required: true)
+    }
 </body>
 </html>

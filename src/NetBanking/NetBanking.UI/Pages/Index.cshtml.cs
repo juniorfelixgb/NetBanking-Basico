@@ -17,7 +17,7 @@ namespace NetBanking.UI.Pages
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
-        public Credenciales _Credenciales { get; set; }
+        public NC_Credenciales _Credenciales { get; set; }
         public bool Incorreto { get; set; } 
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -27,14 +27,14 @@ namespace NetBanking.UI.Pages
 
         public void OnGet()
         {
-            _Credenciales = new Credenciales();
+            _Credenciales = new NC_Credenciales();
             Incorreto = false;
         }
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
-                Login login = new Login();
+                NL_Login login = new NL_Login();
                 if (login.LoginIN(_Credenciales))
                 {
                     var claims = new List<Claim>

@@ -52,9 +52,9 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.MonedaId).HasColumnName("MonedaID");
 
-                entity.Property(e => e.MontoDisponible).HasColumnType("decimal(38, 2)");
+                entity.Property(e => e.MontoDisponible).HasColumnType("numeric(38, 2)");
 
-                entity.Property(e => e.MontoTrancito).HasColumnType("decimal(38, 2)");
+                entity.Property(e => e.MontoTrancito).HasColumnType("numeric(38, 2)");
 
                 entity.Property(e => e.NumeroCuenta)
                     .IsRequired()
@@ -86,9 +86,11 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha).HasColumnType("datetime");
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Monto).HasColumnType("decimal(35, 2)");
+                entity.Property(e => e.Monto).HasColumnType("numeric(35, 2)");
 
                 entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");
 
@@ -117,7 +119,7 @@ namespace NetBanking.DATA.Modelo
 
                 entity.ToTable("EstadoTRD");
 
-                entity.HasIndex(e => e.Estado, "UQ__EstadoTR__36DF552F9485E473")
+                entity.HasIndex(e => e.Estado, "UQ__EstadoTR__36DF552FF6F60B02")
                     .IsUnique();
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
@@ -130,10 +132,10 @@ namespace NetBanking.DATA.Modelo
 
             modelBuilder.Entity<Moneda>(entity =>
             {
-                entity.HasIndex(e => e.MonedaNombre, "UQ__Monedas__0312CC3C1CB64551")
+                entity.HasIndex(e => e.MonedaNombre, "UQ__Monedas__0312CC3C515BE83C")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Abreviado, "UQ__Monedas__090D9EAC23288B60")
+                entity.HasIndex(e => e.Abreviado, "UQ__Monedas__C294908F0FDEB920")
                     .IsUnique();
 
                 entity.Property(e => e.MonedaId).HasColumnName("MonedaID");
@@ -141,8 +143,7 @@ namespace NetBanking.DATA.Modelo
                 entity.Property(e => e.Abreviado)
                     .IsRequired()
                     .HasMaxLength(3)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
+                    .IsUnicode(false);
 
                 entity.Property(e => e.MonedaNombre)
                     .IsRequired()
@@ -193,9 +194,11 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha).HasColumnType("datetime");
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Monto).HasColumnType("decimal(35, 2)");
+                entity.Property(e => e.Monto).HasColumnType("numeric(35, 2)");
 
                 entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");
 
@@ -224,7 +227,7 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.TransaccionId).HasColumnName("TransaccionID");
 
-                entity.Property(e => e.CostoTransferencia).HasColumnType("decimal(15, 15)");
+                entity.Property(e => e.CostoTransferencia).HasColumnType("numeric(18, 15)");
 
                 entity.Property(e => e.DepositoId).HasColumnName("DepositoID");
 
@@ -232,7 +235,9 @@ namespace NetBanking.DATA.Modelo
 
                 entity.Property(e => e.EstadoId).HasColumnName("EstadoID");
 
-                entity.Property(e => e.Fecha).HasColumnType("datetime");
+                entity.Property(e => e.Fecha)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.MonedaCambioId).HasColumnName("MonedaCambioID");
 
@@ -264,10 +269,10 @@ namespace NetBanking.DATA.Modelo
 
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.HasIndex(e => e.NombreUsuario, "UQ__Usuarios__6B0F5AE0C8967613")
+                entity.HasIndex(e => e.NombreUsuario, "UQ__Usuarios__6B0F5AE04DD6A5ED")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__Usuarios__A9D10534C2886D7D")
+                entity.HasIndex(e => e.Email, "UQ__Usuarios__A9D105349CC3908B")
                     .IsUnique();
 
                 entity.Property(e => e.UsuarioId).HasColumnName("UsuarioID");

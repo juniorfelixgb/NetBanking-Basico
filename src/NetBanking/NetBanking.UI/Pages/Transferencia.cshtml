@@ -1,33 +1,100 @@
 ﻿@page
 @model NetBanking.UI.Pages.TransferenciaModel
 @{
+    Html.AntiForgeryToken();
 }
+<input type="hidden" />
 
-<div class="container-sm p-4 w-50 mt-5 rounded shadow-4">
-    <h4>Enviar pagos</h4>
-    <div class="input-group mt-4">
-        <input type="search"
-               class="form-control rounded"
-               placeholder="Search"
-               aria-label="Search"
-               aria-describedby="search-addon" />
-        <br />
-        <button type="button" class="btn btn-outline-primary">search</button>
-    </div>
 
-    <h4 class="mt-5">Contactos</h4>
-    <div class="list-group">
-        <a href="#"
-           class="list-group-item list-group-item-action"
-           aria-current="true">
-            Cras justo odio
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-        <a href="#"
-           class="list-group-item list-group-item-action disabled"
-           tabindex="-1"
-           aria-disabled="true">Vestibulum at eros</a>
-    </div>
+<div class="container shadow-5 p-5 mt-5 rounded">
+
+    <h2>Trnasferencias</h2>
+    <h6 class="text-muted">NO. Cuenta de destinatario</h6>
+
+    <form method="post">
+        <div class="form-counter mb-4 mt-5">
+            <label class="form-label" for="cuentaRetiro">No. Cuenta origen</label>
+            <select asp-for="_Trasferencia.NumeroCuentaRetiro" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-outline mb-4 mt-5">
+            <input asp-for="_Trasferencia.NumeroCuentaDeposito" type="text" id="cuentaDeposito" class="form-control form-control-lg" />
+            <label class="form-label text-center" for="cuentaDeposito">No. Cuenta destino</label>
+        </div>
+        <div class="form-outline mb-4 mt-5">
+            <input asp-for="_Trasferencia.MontoParaDeposito" type="number" id="form4Example1" class="form-control form-control-lg" placeholder="$0.00" />
+            <label class="form-label text-center" for="form4Example1">Monto</label>
+        </div>
+        <div class="form-outline mb-4 mt-5">
+            <input asp-for="_Trasferencia.Detalles" type="text" id="Example1" class="form-control form-control-lg" />
+            <label class="form-label text-center" for="Example1">Concepto</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mb-4">Continuar</button>
+    </form>
+    <a asp-page="/Transferencia" class="btn btn-block mb-4">Cancelar</a>
 </div>
+
+
+
+
+@*<div class="container-sm p-4 w-50 mt-5 rounded shadow-4">
+        <h4>Enviar pagos</h4>
+        <div class="input-group mt-4">
+            <input type="search"
+                   class="form-control rounded"
+                   placeholder="Search"
+                   aria-label="Search"
+                   aria-describedby="search-addon" />
+            <br />
+            <button type="button" class="btn btn-outline-primary">search</button>
+        </div>
+
+        <h4 class="mt-5">Contactos</h4>
+        <div class="list-group">
+            <a href="#"
+               class="list-group-item list-group-item-action"
+               aria-current="true">
+                Cras justo odio
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+            <a href="#"
+               class="list-group-item list-group-item-action disabled"
+               tabindex="-1"
+               aria-disabled="true">Vestibulum at eros</a>
+        </div>
+    </div>*@
+@section Scripts{
+
+
+    <script type="text/javascript">
+    @*$.ajax(
+        url: '@Url.Action("","/")'
+    )*@
+        $('#cuentaDeposito').blur(function () {
+        var transferencia = { "NumeroCuentaRetiro": $('#cuentaRetiro').val(), "NumeroCuentaDeposito": $('#cuentaDeposito').val() }
+            if (transferencia['NumeroCuentaRetiro'].length > 10 && transferencia['NumeroCuentaDeposito'].length>10) {
+
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Transferencia?handler=CuentaDeposito",
+            data: JSON.stringify(transferencia),//{ numeroCuenta: `${$('#cuentaDeposito').val()}` },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            // AntiforgeryToken is required by RazorPages
+            headers: {
+                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+            }
+        }).done(function (data) {
+            console.log(data);
+        }).fail(function (data) {
+            console.log(data);
+        });
+    })
+
+    </script>
+}

@@ -8,9 +8,9 @@ using NetBanking.Core;
 
 namespace NetBanking.Logica
 {
-    public class Login
+    public class NL_Login
     {
-        public bool LoginIN(Credenciales credenciales)
+        public bool LoginIN(NC_Credenciales credenciales)
         {
             bool resultado = false;
             using (var db = new netbankingContext())
@@ -24,7 +24,7 @@ namespace NetBanking.Logica
             return resultado;
         }
 
-        public bool RegistroNewUsuario(newUsuario usuario)
+        public bool RegistroNewUsuario(NC_newUsuario usuario)
         {
             bool registrado = false;
             try
