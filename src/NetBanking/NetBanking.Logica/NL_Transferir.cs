@@ -13,6 +13,8 @@ namespace NetBanking.Logica
     {
         public void Transfiere(NC_Trasferencia trasferencia)
         {
+            trasferencia.NumeroCuentaDeposito = trasferencia.NumeroCuentaDeposito.Split(" ")[trasferencia.NumeroCuentaDeposito.Split(" ").Length - 1];
+
             try
             {
                 using (var db=new netbankingContext())
@@ -25,7 +27,7 @@ namespace NetBanking.Logica
                                                        @MontoParaDeposito = {trasferencia.MontoParaDeposito},
                                                        @MontoInsuficiente = {trasferencia.MontoInsuficiente} OUTPUT,
                                                        @Detalles = {trasferencia.Detalles}, 
-                                                       @Confirmada = {trasferencia.Confirmada}");
+                                                       @Confirmada =1");
                 }
             }
             catch (Exception)

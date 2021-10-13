@@ -1,39 +1,39 @@
 ﻿@page
 @model NetBanking.UI.Pages.TransferenciaModel
 @{
+    ViewData["Title"] = "Transferencias";
     Html.AntiForgeryToken();
 }
 <input type="hidden" />
 
 
-<div class="container shadow-5 p-5 mt-5 rounded">
+<div class="container w-75 shadow p-5 rounded" style="padding-left: 12% !important; padding-right: 12% !important ">
 
-    <h2>Trnasferencias</h2>
-    <h6 class="text-muted">NO. Cuenta de destinatario</h6>
+    <h2>Transferencia</h2>
 
-    <form method="post">
-        <div class="form-counter mb-4 mt-5">
+    <form method="post" >
+        <div class="form-counter mb-4 mt-2">
             <label class="form-label" for="cuentaRetiro">No. Cuenta origen</label>
             <select asp-for="_Trasferencia.NumeroCuentaRetiro" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg">
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-outline mb-4 mt-5">
+        <div class="form-outline mb-4 ">
             <input asp-for="_Trasferencia.NumeroCuentaDeposito" type="text" id="cuentaDeposito" class="form-control form-control-lg" />
             <label class="form-label text-center" for="cuentaDeposito">No. Cuenta destino</label>
         </div>
-        <div class="form-outline mb-4 mt-5">
+        <div class="form-outline mb-4">
             <input asp-for="_Trasferencia.MontoParaDeposito" type="number" id="form4Example1" class="form-control form-control-lg" placeholder="$0.00" />
             <label class="form-label text-center" for="form4Example1">Monto</label>
         </div>
-        <div class="form-outline mb-4 mt-5">
+        <div class="form-outline mb-4">
             <input asp-for="_Trasferencia.Detalles" type="text" id="Example1" class="form-control form-control-lg" />
             <label class="form-label text-center" for="Example1">Concepto</label>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block mb-4">Continuar</button>
+        <a asp-page="/Dashboard" class="btn btn-block mb-4">Cancelar</a>
     </form>
-    <a asp-page="/Transferencia" class="btn btn-block mb-4">Cancelar</a>
 </div>
 
 
@@ -71,30 +71,37 @@
 
 
     <script type="text/javascript">
-    @*$.ajax(
+        @*$.ajax(
         url: '@Url.Action("","/")'
     )*@
-        $('#cuentaDeposito').blur(function () {
-        var transferencia = { "NumeroCuentaRetiro": $('#cuentaRetiro').val(), "NumeroCuentaDeposito": $('#cuentaDeposito').val() }
-            if (transferencia['NumeroCuentaRetiro'].length > 10 && transferencia['NumeroCuentaDeposito'].length>10) {
-
-        }
-        $.ajax({
-            type: "POST",
-            url: "/Transferencia?handler=CuentaDeposito",
-            data: JSON.stringify(transferencia),//{ numeroCuenta: `${$('#cuentaDeposito').val()}` },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            // AntiforgeryToken is required by RazorPages
-            headers: {
-                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
-            }
-        }).done(function (data) {
-            console.log(data);
-        }).fail(function (data) {
-            console.log(data);
+        var numeroCuentaDeposito='';
+        $('#cuentaDeposito').focusin(function () {
+            this.value=(numeroCuentaDeposito);
         });
-    })
+        $('#cuentaDeposito').blur(function () {
+            var transferencia = { "NumeroCuentaRetiro": $('#cuentaRetiro').val(), "NumeroCuentaDeposito": $('#cuentaDeposito').val() }
+            if (transferencia['NumeroCuentaRetiro'].length > 10 && transferencia['NumeroCuentaDeposito'].length > 10) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Transferencia?handler=CuentaDeposito",
+                    data: JSON.stringify(transferencia),//{ numeroCuenta: `${$('#cuentaDeposito').val()}` },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    // AntiforgeryToken is required by RazorPages
+                    headers: {
+                        RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                    }
+                }).done(function (data) {
+                    console.log(data);
+                    numeroCuentaDeposito = $('#cuentaDeposito').val();
+                    $('#cuentaDeposito').val(data.resultado.nombreApellido + ' ' + numeroCuentaDeposito)
+                }).fail(function (data) {
+                    console.log(data);
+                });
+            }
+        });
 
     </script>
 }

@@ -13,6 +13,7 @@ namespace NetBanking.UI.Pages
 {
     public class TransferenciaModel : PageModel
     {
+        [BindProperty]
         public NC_Trasferencia _Trasferencia { get; set; }
         public SelectList _SelectCuentas { get; set; }
         public void OnGet()
@@ -30,7 +31,7 @@ namespace NetBanking.UI.Pages
 
 
 
-            _SelectCuentas = new SelectList(_Cuentas, nameof(NC_Cuentas.NumeroCuenta), nameof(NC_Cuentas.NumeroCuentaMontoDisponible), "RD40225178843", nameof(NC_Cuentas.MonedaSimbolo));
+            _SelectCuentas = new SelectList(_Cuentas, nameof(NC_Cuentas.NumeroCuenta), nameof(NC_Cuentas.NumeroCuentaMontoDisponible), "", nameof(NC_Cuentas.MonedaSimbolo));
             //var Sales = new SelectListGroup { Name = "Sales" };
             //var Admin = new SelectListGroup { Name = "Admin" };
             //var IT = new SelectListGroup { Name = "IT" };
@@ -42,6 +43,10 @@ namespace NetBanking.UI.Pages
             //            new SelectListItem{ Value = "4", Text = "Dean", Group = Sales}
             //        };
         }
+        public void OnPost()
+        {
+            new NL_Transferir().Transfiere(_Trasferencia);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -51,19 +56,19 @@ namespace NetBanking.UI.Pages
             {
                 using (var db = new netbankingContext())
                 {
-                    var cuentaRetiro = db.Cuentas.FirstOrDefault(p => p.NumeroCuenta == trasferencia.NumeroCuentaRetiro);
-                    var cuentaDeposito = db.Cuentas.FirstOrDefault(p => p.NumeroCuenta == trasferencia.NumeroCuentaDeposito);
+                    var cuentaRetiro = db.Cuentas.SingleOrDefault(p => p.NumeroCuenta == trasferencia.NumeroCuentaRetiro);
+                    var cuentaDeposito = db.Cuentas.Where(p => p.NumeroCuenta == trasferencia.NumeroCuentaDeposito).Select(p=>new { p.MonedaId, p.Moneda, p.Usuario}).FirstOrDefault();
 
                     NC_Cuentas nc_cuentas ;
                     if ((cuentaDeposito != null))
                     {
-                       decimal valorCambioMoneda = db.MonedaCambios.First
-                            (p => p.MonedaIddesde == cuentaRetiro.MonedaId && p.MonedaIdhacia == cuentaDeposito.MonedaId).Valor;
-                        nc_cuentas = new NC_Cuentas()
+                       var cambioMoneda = (cuentaRetiro.MonedaId == cuentaDeposito.MonedaId)?new MonedaCambio { Valor=(decimal)1 } 
+                       :db.MonedaCambios.First(p => p.MonedaIddesde == cuentaRetiro.MonedaId && p.MonedaIdhacia == cuentaDeposito.MonedaId);
+                        nc_cuentas = new NC_Cuentas
                         {
-                            ValorCambioMoneda = valorCambioMoneda,
+                            NumeroCuentaMontoDisponible =  cambioMoneda.Detalles,
+                            ValorCambioMoneda = cambioMoneda.Valor,
                             MonedaSimbolo = cuentaDeposito.Moneda.Simbolo,
-                            NumeroCuenta = cuentaDeposito.NumeroCuenta,
                             NombreApellido = $"{cuentaDeposito.Usuario.Nombres.Split(" ")[0]} {cuentaDeposito.Usuario.Apellidos.Split(" ")[0]}"
                         };
                     }
