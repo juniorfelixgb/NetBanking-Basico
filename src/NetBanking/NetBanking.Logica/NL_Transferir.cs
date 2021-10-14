@@ -11,8 +11,9 @@ namespace NetBanking.Logica
 {
     public class NL_Transferir
     {
-        public void Transfiere(NC_Trasferencia trasferencia)
+        public bool Transfiere(NC_Trasferencia trasferencia)
         {
+            bool resultado = false;
             trasferencia.NumeroCuentaDeposito = trasferencia.NumeroCuentaDeposito.Split(" ")[trasferencia.NumeroCuentaDeposito.Split(" ").Length - 1];
 
             try
@@ -20,19 +21,22 @@ namespace NetBanking.Logica
                 using (var db=new netbankingContext())
                 {
                     
-                    var resultado=db.Database.ExecuteSqlInterpolated($@"EXEC	 [dbo].[Transferir]
-                                                       @UsuarioID = {trasferencia.UsuarioID},
+                    var result=db.Database.ExecuteSqlInterpolated($@"EXEC	 [dbo].[Transferir]
+                                                       @UsuarioID = {db.Usuarios.FirstOrDefault(p=>p.NombreUsuario == trasferencia.UsuarioNombre).UsuarioId},
                                                        @NumeroCuentaRetiro = {trasferencia.NumeroCuentaRetiro},
                                                        @NumeroCuentaDeposito = {trasferencia.NumeroCuentaDeposito},
                                                        @MontoParaDeposito = {trasferencia.MontoParaDeposito},
-                                                       @MontoInsuficiente = {trasferencia.MontoInsuficiente} OUTPUT,
                                                        @Detalles = {trasferencia.Detalles}, 
-                                                       @Confirmada =1");
+                                                       @Confirmada = 1");
+                    if (result > 7)
+                        resultado = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {            }
 
+            trasferencia.Confirmada = resultado;
+            return resultado;
         }
     }
 }

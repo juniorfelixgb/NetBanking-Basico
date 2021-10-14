@@ -42,7 +42,13 @@ namespace NetBanking.UI
             //        op.AddPolicy("Administradores", p=>p.RequireClaim("Admin"));
             //        op.AddPolicy("SoloRRHH", opt => opt.RequireClaim("Departamento", "RRHH"));
             //    });
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorPagesOptions(op =>
+            {
+                op.Conventions.AuthorizeFolder("/");
+                op.Conventions.AllowAnonymousToPage("/Index");
+                op.Conventions.AllowAnonymousToPage("/Authenticate/Register");
+                op.Conventions.AllowAnonymousToPage("/Authenticate/ForgotPassword");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,7 +11,7 @@ using NetBanking.Logica;
 namespace NetBanking.UI.Pages
 {
     
-    [Authorize]
+    
     public class DashboardModel : PageModel
     {
         public List<NC_Cuentas> _Cuentas { get; set; }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using NetBanking.Logica;
 
 namespace NetBanking.UI.Pages
 {
+    [Authorize]
     public class TransferenciaModel : PageModel
     {
         [BindProperty]
@@ -30,8 +32,10 @@ namespace NetBanking.UI.Pages
                 }).ToList();
 
 
-
             _SelectCuentas = new SelectList(_Cuentas, nameof(NC_Cuentas.NumeroCuenta), nameof(NC_Cuentas.NumeroCuentaMontoDisponible), "", nameof(NC_Cuentas.MonedaSimbolo));
+            
+            
+            
             //var Sales = new SelectListGroup { Name = "Sales" };
             //var Admin = new SelectListGroup { Name = "Admin" };
             //var IT = new SelectListGroup { Name = "IT" };
@@ -45,7 +49,11 @@ namespace NetBanking.UI.Pages
         }
         public void OnPost()
         {
-            new NL_Transferir().Transfiere(_Trasferencia);
+            _Trasferencia.UsuarioNombre = User.Identity.Name;
+            if (new NL_Transferir().Transfiere(_Trasferencia))
+            {
+
+            }
         }
 
         [HttpPost]

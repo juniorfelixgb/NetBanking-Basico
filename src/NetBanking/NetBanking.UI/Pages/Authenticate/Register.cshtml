@@ -113,17 +113,18 @@
 </div>
 
 
+@section Scripts{
+    <script src="~/js/mc-calendar.min.js"></script>
+    <script type="text/javascript">
+        const myDatePicker = MCDatepicker.create({
+            el: '#fechaNacimiento', dateFormat: 'YYYY-MM-DD',
+            maxDate: new Date((new Date().getFullYear() -18), 11, 31),
+            customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
+            customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            customOkBTN: 'OK',
+            customClearBTN: 'CLEAR',
+            customCancelBTN: 'CANCEL'
+        });
 
-<script src="~/js/mc-calendar.min.js"></script>
-<script type="text/javascript">
-    const myDatePicker = MCDatepicker.create({
-        el: '#fechaNacimiento', dateFormat: 'YYYY-MM-DD',
-        maxDate: new Date(2019, 11, 25),
-        customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
-        customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        customOkBTN: 'OK',
-        customClearBTN: 'CLEAR',
-        customCancelBTN: 'CANCEL'
-    });
-
-</script>
+    </script>
+}
