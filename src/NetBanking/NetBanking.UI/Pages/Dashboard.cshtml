@@ -9,7 +9,7 @@
         @foreach (var cuenta in Model._Cuentas)
         {
             <div class="w-100">
-                <div class="container-sm shadow p-4 rounded">
+                <div class="mb-3 shadow p-4 rounded">
                     <h4 class="text-info">Cuenta: @cuenta.NumeroCuenta</h4>
                     <h5 style="margin-bottom:0 !important;"><p class="text-start ">Balance: @cuenta.MonedaSimbolo @cuenta.MontoDisponible </p></h5>
 
@@ -40,13 +40,12 @@
     <div class="col-lg-1"></div>
     <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block">
         <h4 class="text-dark mt-3">Actividades recientes</h4>
-        <h5 class="text-dark mt-3"><b>D</b>eposito o <b>R</b>etiro</i></h5>
+        <h5 class="text-dark mt-2"><span class="text-success"><b>D</b>eposito</span> &nbsp;o&nbsp; <span class="text-danger"><b>R</b>etiro</span></h5>
         <ul class="list-group">
-            <li class="list-group-item"> 25/10/2021 $3000 <b>D</b></li>
-            <li class="list-group-item"> 25/10/2021 $200 <b>R</b></li>
-            <li class="list-group-item"> 15/10/2021 $200 <b>D</b></li>
-            <li class="list-group-item"> 15/10/2021 $3000 <b>D</b></li>
-            <li class="list-group-item"> 05/10/2021 $5000 <b>R</b></li>
+            @foreach (var item in Model.Resumen)
+            {
+            <li class="list-group-item  @((item.DepRet.Substring(0, 1)=="R")?"text-danger":"text-success")"> @item.Fecha.Value.ToShortDateString() &nbsp;&nbsp;@item.Moneda @item.Monto <b>@item.DepRet.Substring(0, 1)</b></li>
+            }
         </ul>
     </div>
 </div>

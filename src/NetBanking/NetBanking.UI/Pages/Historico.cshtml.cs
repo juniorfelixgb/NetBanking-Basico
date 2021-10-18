@@ -14,7 +14,25 @@ namespace NetBanking.UI.Pages
     public class HistoricoModel : PageModel
     {
         public SelectList _SelectCuentas { get; set; }
+        public List<NC_Historico> _Historicos { get; set; }
+
+        [BindProperty]
+        public NC_PropHistorico _propHistorico { get; set; }
+
+        public HistoricoModel()
+        {
+
+        }
         public void OnGet(string numeroCuenta="")
+        {
+            CargarSelectCuentas(numeroCuenta);
+        }
+        public void OnPost()
+        {
+            _Historicos = new NL_Historico().GetHistorico(_propHistorico);
+            CargarSelectCuentas(_propHistorico.NumeroCuenta);
+        }
+        private void CargarSelectCuentas(string numeroCuenta = "")
         {
             List<NC_Cuentas> _Cuentas;
             _Cuentas = new NL_BuscarCuentas().CuentasDisponibles(User.Identity.Name)

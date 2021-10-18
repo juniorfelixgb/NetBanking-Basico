@@ -4,22 +4,24 @@
 }
 
 <link href="~/css/mc-calendar.min.css" rel="stylesheet" />
-<div class="container-sm p-4 w-75 mt-3 rounded">
-    <div class="form-counter">
-        <label class="form-label" for="cuentaRetiro">No. Cuenta</label>
-        <select asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg">
-            <option value=""></option>
-        </select>
-    </div>
+<form method="post">
+    <div class="container-sm p-4 w-75 mt-3 rounded">
+        <div class="form-counter">
+            <label class="form-label" for="cuentaRetiro">No. Cuenta</label>
+            <select asp-for="_propHistorico.NumeroCuenta" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg">
+                <option value=""></option>
+            </select>
+        </div>
 
-    <div class="d-flex mt-1">
-        <label for="">Fecha desde: </label>
-        <input type="date" class="ms-3 me-3" id="fechaDesde" dateformat="dd-MM-yyyy" />
-        <label for="">Fecha hasta: </label>
-        <input type="date" id="fechaHasta" class="ms-3 me-3" />
+        <div class="d-flex mt-1">
+            <label for="fechaDesde">Fecha desde: </label>
+            <input asp-for="_propHistorico.FechaDesde" type="date" class="ms-3 me-3" id="fechaDesde"  />
+            <label for="fechaHasta">Fecha hasta: </label>
+            <input asp-for="_propHistorico.FechaHasta" type="date" id="fechaHasta" class="ms-3 me-3" />
+        </div>
+        <button type="submit" class="btn btn-outline-primary" >Buscar</button>
     </div>
-    <button type="submit" class="btn btn-outline-primary" data-date="" data-date-format="DD-MM-YYYY" >search</button>
-</div>
+</form>
 <div class="container-sm shadow-5 p-4 w-75 mt-2 rounded">
     <h5>Historico</h5>
 
@@ -30,17 +32,23 @@
                 <th scope="col">Destinatario</th>
                 <th scope="col">Monto</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Detalle</th>
 
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>10/5/2021</td>
+            @if (!(Model._Historicos is null))
+                foreach (var item in Model._Historicos)
+                {
+                <tr>
+                    <th scope="row">@item.NumeroCuenta</th>
+                    <td>@(item.UsuarioNombre.Split(" ")[0]+" "+item.UsuarioApellido.Split(" ")[0])</td>
+                    <td>@item.Monto</td>
+                    <td>@item.Fecha</td>
+                    <td>@(item.DepRet+" - "+item.Detalles)</td>
 
-            </tr>
+                </tr>
+            }
 
         </tbody>
     </table>
@@ -52,12 +60,17 @@
     <script type="text/javascript">
         const myDatePicker = MCDatepicker.create({
             el: '#fechaDesde', dateFormat: 'YYYY-MM-DD',
+
+            autoClose: true,
+            closeOndblclick: true,
             customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
             customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
             customOkBTN: 'OK',
             customClearBTN: 'CLEAR',
             customCancelBTN: 'CANCEL'
         });
+        myDatePicker.setMonth(new Date().getMonth() - 1);
+
         const myDatePicker2 = MCDatepicker.create({
             el: '#fechaHasta', dateFormat: 'YYYY-MM-DD',
             customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
@@ -66,6 +79,8 @@
             customClearBTN: 'CLEAR',
             customCancelBTN: 'CANCEL'
         });
+
+        myDatePicker2.setDate(new Date().getDate());
 
     </script>
 }
