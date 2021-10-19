@@ -4,9 +4,20 @@
 }
 
 <div class="row p-5 " style="height: 100% !important;">
-    <h2>Todas Las Cuentas  </h2>
+    <h2>
+        Todas Las Cuentas  &nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- Button trigger modal -->
+        <button type="button"
+                class="btn btn-primary "
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModal">
+            Crear Nueva Cuenta
+        </button>
+    </h2>
     <div class="col-lg-7" style="height: 90% !important; overflow-y: scroll; overflow-x: hidden;">
-        @foreach (var cuenta in Model._Cuentas)
+
+        @if(Model._Cuentas != null)
+            foreach (var cuenta in Model._Cuentas)
         {
             <div class="w-100">
                 <div class="mb-3 shadow p-4 rounded">
@@ -44,9 +55,56 @@
         <ul class="list-group">
             @foreach (var item in Model.Resumen)
             {
-            <li class="list-group-item  @((item.DepRet.Substring(0, 1)=="R")?"text-danger":"text-success")"> @item.Fecha.Value.ToShortDateString() &nbsp;&nbsp;@item.Moneda @item.Monto <b>@item.DepRet.Substring(0, 1)</b></li>
+                <li class="list-group-item  @((item.DepRet.Substring(0, 1)=="R")?"text-danger":"text-success")"> @item.Fecha.Value.ToShortDateString() &nbsp;&nbsp;@item.Moneda @item.Monto <b>@item.DepRet.Substring(0, 1)</b></li>
             }
         </ul>
     </div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade"
+     id="exampleModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add money and account</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <!-- No cuenta -->
+                    <div class="form-counter">
+                        <label class="form-label" for="cuentaRetiro">No. Cuenta</label>
+                        <select asp-for="_Cuenta.MonedaId" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg" required>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <!-- No Monto -->
+                    <span>Monto</span>
+                    <div class="form-outline mb-4">
+
+                        <input type="number" asp-for="_Cuenta.MontoDisponible" id="Monto" class="form-control" placeholder="$0.00" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                        Guardar
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -47,13 +47,14 @@ namespace NetBanking.UI.Pages
             //            new SelectListItem{ Value = "4", Text = "Dean", Group = Sales}
             //        };
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
             _Trasferencia.UsuarioNombre = User.Identity.Name;
             if (new NL_Transferir().Transfiere(_Trasferencia))
             {
-
+                return RedirectToPage("TransacionExito");
             }
+            return RedirectToPage("/Transferencia");
         }
 
         [HttpPost]
