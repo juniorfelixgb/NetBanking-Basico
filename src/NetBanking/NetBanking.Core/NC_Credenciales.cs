@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core
 {
-    public class Credenciales
+    public class NC_Credenciales
     {
 
         [Required(ErrorMessage = "Campo Obligatorio.")]

@@ -16,7 +16,6 @@ namespace NetBanking.DATA.Modelo
         public int CuentaId { get; set; }
         public int UsuarioId { get; set; }
         public int EstadoId { get; set; }
-        public string AlisCuenta { get; set; }
         public decimal Monto { get; set; }
         public DateTime? Fecha { get; set; }
         public string Detalles { get; set; }

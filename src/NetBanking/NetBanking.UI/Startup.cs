@@ -27,10 +27,12 @@ namespace NetBanking.UI
         {
             //services.AddSession();
             services.AddDbContext<netbankingContext>(options => options.UseSqlServer(Configuration.GetConnectionString(NET_BANKING_CONNECTION)));
+            //services.AddScoped<netbankingContext>();
             services.AddAuthentication("AUT").AddCookie("AUT",op=> 
             { 
                 op.Cookie.Name = "AUT"; 
                 op.LoginPath = "/Index";
+                op.LogoutPath = "/Index";
                 op.AccessDeniedPath = "/Authenticate/AccessDenied";
                 op.ExpireTimeSpan = TimeSpan.FromMinutes(20);
             });
@@ -40,7 +42,13 @@ namespace NetBanking.UI
             //        op.AddPolicy("Administradores", p=>p.RequireClaim("Admin"));
             //        op.AddPolicy("SoloRRHH", opt => opt.RequireClaim("Departamento", "RRHH"));
             //    });
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorPagesOptions(op =>
+            {
+                op.Conventions.AuthorizeFolder("/");
+                op.Conventions.AllowAnonymousToPage("/Index");
+                op.Conventions.AllowAnonymousToPage("/Authenticate/Register");
+                op.Conventions.AllowAnonymousToPage("/Authenticate/ForgotPassword");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

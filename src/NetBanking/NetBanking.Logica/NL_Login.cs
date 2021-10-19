@@ -8,23 +8,23 @@ using NetBanking.Core;
 
 namespace NetBanking.Logica
 {
-    public class Login
+    public class NL_Login
     {
-        public bool LoginIN(Credenciales credenciales)
+        public bool LoginIN(NC_Credenciales credenciales)
         {
             bool resultado = false;
             using (var db = new netbankingContext())
             {
                 var usuario = db.Usuarios.FirstOrDefault(p => p.NombreUsuario.ToLower() == credenciales.Usuario.Trim().ToLower()
                 && p.Contrasena == credenciales.Password.Trim());
-                resultado = (usuario != null) ? true : false;
+                resultado = (usuario != null);
                 if (resultado)
                     credenciales.NombreApellido = $"{usuario.Nombres.Split(" ")[0]} {usuario.Apellidos.Split(" ")[0]}";
             }
             return resultado;
         }
 
-        public bool RegistroNewUsuario(newUsuario usuario)
+        public bool RegistroNewUsuario(NC_newUsuario usuario)
         {
             bool registrado = false;
             try

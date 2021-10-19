@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetBanking.Core
 {
-    public class newUsuario
+    public class NC_newUsuario
     {
 
         [Required(ErrorMessage = "Campo Obligatorio.")]
@@ -23,12 +23,13 @@ namespace NetBanking.Core
 
         [Required(ErrorMessage = "Campo Obligatorio.")]
         [StringLength(50, ErrorMessage = "Contraseña demasiado larga.")]
+        [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Campo Obligatorio.")]
-        [DataType(DataType.Password)]
         [Compare("Password",ErrorMessage = "No coinciden las contraseñas.")]
+        [DataType(DataType.Password)]
         [Display(Name = "Confirmar Contraseña")]
         public string CheckPassword { get; set; }
 

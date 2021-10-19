@@ -4,6 +4,7 @@
     ViewData["Title"] = "Nuevo Usuario";
 }
 
+<link href="~/css/mc-calendar.min.css" rel="stylesheet" />
 <div class="row pt-3">
     <a href="/">
         <h1 class="font-weight-bold">NetBanking</h1>
@@ -20,49 +21,49 @@
                 <small>Ingresa tus datos e inicia con nosotros.</small>
             </div>
             <div class="card-body">
-                <form method="post" >
+                <form method="post">
                     <div class="row mb-4">
                         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Cedula" />
-                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Cedula"> </label>
+                                <input type="text" id="cedula" class="form-control" asp-for="_Usuario.Cedula" />
+                                <label class="form-label" for="cedula" asp-for="_Usuario.Cedula"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Cedula"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="text" id="form3Example1" class="form-control" asp-for="_Usuario.Nombres" />
-                                <label class="form-label" for="form3Example1" asp-for="_Usuario.Nombres"> </label>
+                                <input type="text" id="Nom" class="form-control" asp-for="_Usuario.Nombres" />
+                                <label class="form-label" for="Nom" asp-for="_Usuario.Nombres"> </label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Nombres"></span>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-outline">
-                                <input type="text" id="form3Example2" class="form-control" asp-for="_Usuario.Apellidos"/>
-                                <label class="form-label" for="form3Example2" asp-for="_Usuario.Apellidos"></label>
+                                <input type="text" id="Ape" class="form-control" asp-for="_Usuario.Apellidos" />
+                                <label class="form-label" for="Ape" asp-for="_Usuario.Apellidos"></label>
                                 <span class="text-danger" asp-validation-for="_Usuario.Apellidos"></span>
                             </div>
                         </div>
                     </div>
+                    <div class="form-outline mb-4 ">
 
-                    <label class="form-label" for="form1Example1"  asp-for="_Usuario.FechaNacimiento"></label>
-                    <div class="form-outline mb-4 datepicker">
-                        <input type="date" id="form1Example1" class="form-control" data-mdb-format="ddd,dd,mm,yyyy" asp-for="_Usuario.FechaNacimiento" />
+                        <input type="date" id="fechaNacimiento" class="form-control" asp-for="_Usuario.FechaNacimiento" />
+                        <label class="form-label" for="fechaNacimiento" asp-for="_Usuario.FechaNacimiento"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.FechaNacimiento"></span>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form1Example1" class="form-control" asp-for="_Usuario.Email" />
-                        <label class="form-label" for="form1Example1" asp-for="_Usuario.Email"></label>
+                        <input type="email" id="Email" class="form-control" asp-for="_Usuario.Email" />
+                        <label class="form-label" for="Email" asp-for="_Usuario.Email"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.Email"></span>
                     </div>
 
                     <!-- User input -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="form1Example1" class="form-control" asp-for="_Usuario.NombreUsuario" />
-                        <label class="form-label" for="form1Example1" asp-for="_Usuario.NombreUsuario"></label>
+                        <input type="text" id="usuario" class="form-control" asp-for="_Usuario.NombreUsuario" />
+                        <label class="form-label" for="usuario" asp-for="_Usuario.NombreUsuario"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.NombreUsuario"></span>
                     </div>
 
@@ -75,30 +76,30 @@
 
                     <!-- Confirm Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form1Example2" class="form-control" asp-for="_Usuario.CheckPassword" />
-                        <label class="form-label" for="form1Example2" asp-for="_Usuario.CheckPassword"></label>
+                        <input type="password" id="form1Example" class="form-control" asp-for="_Usuario.CheckPassword" />
+                        <label class="form-label" for="form1Example" asp-for="_Usuario.CheckPassword"></label>
                         <span class="text-danger" asp-validation-for="_Usuario.CheckPassword"></span>
                     </div>
 
-                   @* <!-- 2 column grid layout for inline styling -->
-                    <div class="row mb-4">
-                        <div class="col d-flex justify-content-center">
-                            <!-- Checkbox -->
-                            <div class="form-check">
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       value=""
-                                       id="form1Example3"
-                                       checked />
-                                <label class="form-check-label" for="form1Example3"> Recordarme </label>
+                    @* <!-- 2 column grid layout for inline styling -->
+                        <div class="row mb-4">
+                            <div class="col d-flex justify-content-center">
+                                <!-- Checkbox -->
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           value=""
+                                           id="form1Example3"
+                                           checked />
+                                    <label class="form-check-label" for="form1Example3"> Recordarme </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col">
-                            <!-- Simple link -->
-                            <a href="#">Olvidaste tu contraseña?</a>
-                        </div>
-                    </div>*@
+                            <div class="col">
+                                <!-- Simple link -->
+                                <a href="#">Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>*@
 
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
@@ -110,3 +111,20 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    <script src="~/js/mc-calendar.min.js"></script>
+    <script type="text/javascript">
+        const myDatePicker = MCDatepicker.create({
+            el: '#fechaNacimiento', dateFormat: 'YYYY-MM-DD',
+            maxDate: new Date((new Date().getFullYear() -18), 11, 31),
+            customMonths: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octobre', 'Noviembre', 'Deciembre'],
+            customWeekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            customOkBTN: 'OK',
+            customClearBTN: 'CLEAR',
+            customCancelBTN: 'CANCEL'
+        });
+
+    </script>
+}

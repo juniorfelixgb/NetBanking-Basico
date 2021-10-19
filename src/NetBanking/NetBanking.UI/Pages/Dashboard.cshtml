@@ -3,45 +3,108 @@
 @{
 }
 
+<div class="row p-5 " style="height: 100% !important;">
+    <h2>
+        Todas Las Cuentas  &nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- Button trigger modal -->
+        <button type="button"
+                class="btn btn-primary "
+                data-mdb-toggle="modal"
+                data-mdb-target="#exampleModal">
+            Crear Nueva Cuenta
+        </button>
+    </h2>
+    <div class="col-lg-7" style="height: 90% !important; overflow-y: scroll; overflow-x: hidden;">
 
-<div class="row p-5 d-flex justify-items-center">
-    <div class="col-md-7">
-        <h2>Todas Las Cuentas  </h2>
-        <div class="w-100">
-            <div class="container-sm shadow-4 p-4 rounded">
-                <h4 class="text-info">Cuenta: 58490098546</h4>
-                <h5 class="w-100 d-flex justify-content-between"><p class="text-start col">Balance: $ 3000.87 </p></h5>
-                <h6 class="text-success text-end col">Disponible</h6>
-                <a asp-page="/Historico"
-                   class="btn btn-outline-primary mt-2"
-                   data-mdb-ripple-color="dark">
-                    Transferir fondos
-                </a>
-            </div>
-        </div>
-        <div class="w-100">
-            <div class="container-sm shadow-4 p-4 rounded">
-                <h4 class="text-info">Cuenta: 58490098546</h4>
-                <h5 class="w-100 d-flex justify-content-between"><span class="text-start col">Balance: $ 3000.87 </span><span class="text-success text-end col">Disponible</span></h5>
+        @if(Model._Cuentas != null)
+            foreach (var cuenta in Model._Cuentas)
+        {
+            <div class="w-100">
+                <div class="mb-3 shadow p-4 rounded">
+                    <h4 class="text-info">Cuenta: @cuenta.NumeroCuenta</h4>
+                    <h5 style="margin-bottom:0 !important;"><p class="text-start ">Balance: @cuenta.MonedaSimbolo @cuenta.MontoDisponible </p></h5>
 
-                <a asp-page="/Historico"
-                   class="btn btn-outline-primary mt-2"
-                   data-mdb-ripple-color="dark">
-                    Transferir fondos
-                </a>
+                    <div class=" w-100 d-flex justify-content-between" style="margin-top:0 !important;">
+                        <a href="~/Historico?numeroCuenta=@cuenta.NumeroCuenta" style="margin-top:0 !important;"
+                           class="btn btn-outline-primary mt-2 col-6"
+                           data-mdb-ripple-color="dark">
+                            Historial
+                        </a>
+                        <b class="align-self-center text-success text-end col-6">Disponible</b>
+                    </div>
+                </div>
             </div>
-        </div>
+        }
+        @*<div class="w-100">
+                <div class="container-sm shadow-4 p-4 rounded">
+                    <h4 class="text-info">Cuenta: 58490098546</h4>
+                    <h5 class="w-100 d-flex justify-content-between"><span class="text-start col">Balance: $ 3000.87 </span><span class="text-success text-end col">Disponible</span></h5>
+
+                    <a asp-page="/Historico"
+                       class="btn btn-outline-primary mt-2"
+                       data-mdb-ripple-color="dark">
+                        Transferir fondos
+                    </a>
+                </div>
+            </div>*@
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-4 d-none d-sm-none d-md-none d-lg-block">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block">
         <h4 class="text-dark mt-3">Actividades recientes</h4>
-        <h5 class="text-dark mt-3"><b>D</b>eposito o <b>R</b>etiro</i></h5>
+        <h5 class="text-dark mt-2"><span class="text-success"><b>D</b>eposito</span> &nbsp;o&nbsp; <span class="text-danger"><b>R</b>etiro</span></h5>
         <ul class="list-group">
-            <li class="list-group-item"> 25/10/2021 $3000 <b>D</b></li>
-            <li class="list-group-item"> 25/10/2021 $200 <b>R</b></li>
-            <li class="list-group-item"> 15/10/2021 $200 <b>D</b></li>
-            <li class="list-group-item"> 15/10/2021 $3000 <b>D</b></li>
-            <li class="list-group-item"> 05/10/2021 $5000 <b>R</b></li>
+            @foreach (var item in Model.Resumen)
+            {
+                <li class="list-group-item  @((item.DepRet.Substring(0, 1)=="R")?"text-danger":"text-success")"> @item.Fecha.Value.ToShortDateString() &nbsp;&nbsp;@item.Moneda @item.Monto <b>@item.DepRet.Substring(0, 1)</b></li>
+            }
         </ul>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade"
+     id="exampleModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add money and account</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-mdb-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <!-- No cuenta -->
+                    <div class="form-counter">
+                        <label class="form-label" for="cuentaRetiro">No. Cuenta</label>
+                        <select asp-for="_Cuenta.MonedaId" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg" required>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <!-- No Monto -->
+                    <span>Monto</span>
+                    <div class="form-outline mb-4">
+
+                        <input type="number" asp-for="_Cuenta.MontoDisponible" id="Monto" class="form-control" placeholder="$0.00" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                        Guardar
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
 </div>

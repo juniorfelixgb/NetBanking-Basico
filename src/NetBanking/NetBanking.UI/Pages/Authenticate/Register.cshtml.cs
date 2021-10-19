@@ -13,14 +13,14 @@ namespace NetBanking.UI.Pages.Authenticate
     public class RegisterModel : PageModel
     {
         [BindProperty]
-        public newUsuario _Usuario { get; set; }
+        public NC_newUsuario _Usuario { get; set; }
         public void OnGet()
         {
-            _Usuario = new newUsuario();
+            _Usuario = new NC_newUsuario();
         }
         public IActionResult OnPost()
         {
-            if (new Login().RegistroNewUsuario(_Usuario))
+            if (new NL_Login().RegistroNewUsuario(_Usuario))
             {
                 return RedirectToPage("/Index");
             }
