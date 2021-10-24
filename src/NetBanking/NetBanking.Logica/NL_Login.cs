@@ -18,6 +18,7 @@ namespace NetBanking.Logica
                 var usuario = db.Usuarios.FirstOrDefault(p => p.NombreUsuario.ToLower() == credenciales.Usuario.Trim().ToLower()
                 && p.Contrasena == credenciales.Password.Trim());
                 resultado = (usuario != null);
+                // pasa el NombreApellido a la referencia de NC_Credenciales
                 if (resultado)
                     credenciales.NombreApellido = $"{usuario.Nombres.Split(" ")[0]} {usuario.Apellidos.Split(" ")[0]}";
             }

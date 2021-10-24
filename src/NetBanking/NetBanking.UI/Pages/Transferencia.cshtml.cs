@@ -52,7 +52,7 @@ namespace NetBanking.UI.Pages
             _Trasferencia.UsuarioNombre = User.Identity.Name;
             if (new NL_Transferir().Transfiere(_Trasferencia))
             {
-                return RedirectToPage("TransacionExito");
+                return RedirectToPage("/TransacionExito");
             }
             return RedirectToPage("/Transferencia");
         }
@@ -75,6 +75,7 @@ namespace NetBanking.UI.Pages
                        :db.MonedaCambios.First(p => p.MonedaIddesde == cuentaRetiro.MonedaId && p.MonedaIdhacia == cuentaDeposito.MonedaId);
                         nc_cuentas = new NC_Cuentas
                         {
+                            MontoDisponible=cuentaRetiro.MontoDisponible,
                             NumeroCuentaMontoDisponible =  cambioMoneda.Detalles,
                             ValorCambioMoneda = cambioMoneda.Valor,
                             MonedaSimbolo = cuentaDeposito.Moneda.Simbolo,

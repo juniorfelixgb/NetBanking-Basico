@@ -18,10 +18,10 @@ namespace NetBanking.Logica
                 using (var db = new netbankingContext())
                 {
                     var retiros = db.Retiros.Where(p => p.Cuenta.NumeroCuenta == propHistorico.NumeroCuenta && p.Fecha >= propHistorico.FechaDesde && p.Fecha <= propHistorico.FechaHasta.AddDays(1))
-                        .Select(j => new NC_Historico { NumeroCuenta = j.Transacciones.FirstOrDefault().TransaccionId.ToString(), Moneda = j.Cuenta.Moneda.Simbolo, Monto = (-1 * j.Monto), Fecha = j.Fecha, Detalles = j.Detalles, UsuarioNombre = j.Usuario.Nombres, UsuarioApellido = j.Usuario.Apellidos, DepRet = "Retiro" }).ToList();
+                        .Select(j => new NC_Historico { NumeroCuenta = j.RetiroId.ToString(), Moneda = j.Cuenta.Moneda.Simbolo, Monto = (-1 * j.Monto), Fecha = j.Fecha, Detalles = j.Detalles, UsuarioNombre = j.Usuario.Nombres, UsuarioApellido = j.Usuario.Apellidos, DepRet = "Retiro" }).ToList();
 
                     var depositos = db.Depositos.Where(p => p.Cuenta.NumeroCuenta == propHistorico.NumeroCuenta && p.Fecha >= propHistorico.FechaDesde && p.Fecha <= propHistorico.FechaHasta.AddDays(1))
-                        .Select(j => new NC_Historico { NumeroCuenta = j.Transacciones.FirstOrDefault().TransaccionId.ToString(), Moneda = j.Cuenta.Moneda.Simbolo, Monto = j.Monto, Fecha = j.Fecha, Detalles = j.Detalles, UsuarioNombre = j.Usuario.Nombres, UsuarioApellido = j.Usuario.Apellidos, DepRet = "Deposito" }).ToList();
+                        .Select(j => new NC_Historico { NumeroCuenta = j.DepositoId.ToString(), Moneda = j.Cuenta.Moneda.Simbolo, Monto = j.Monto, Fecha = j.Fecha, Detalles = j.Detalles, UsuarioNombre = j.Usuario.Nombres, UsuarioApellido = j.Usuario.Apellidos, DepRet = "Deposito" }).ToList();
 
 
                     resultado = retiros.Union(depositos).OrderByDescending(p => p.Fecha).ToList();

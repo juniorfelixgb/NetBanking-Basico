@@ -4,69 +4,86 @@
     ViewData["Title"] = "Transferencias";
     Html.AntiForgeryToken();
 }
-<input type="hidden" />
 
 
-<div class="container w-75 shadow p-5 rounded" style="padding-left: 12% !important; padding-right: 12% !important ">
+<form id="form1" method="post">
+    <div class="container w-75 shadow p-5 rounded" style="padding-left: 12% !important; padding-right: 12% !important ">
 
-    <h2>Transferencia</h2>
+        <h2>Transferencia</h2>
 
-    <form method="post" >
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
         <div class="form-counter mb-4 mt-2">
             <label class="form-label" for="cuentaRetiro">No. Cuenta origen</label>
             <select asp-for="_Trasferencia.NumeroCuentaRetiro" asp-items="Model._SelectCuentas" id="cuentaRetiro" class="form-select form-control-lg">
                 <option value=""></option>
             </select>
+            <span class="text-danger" asp-validation-for="_Trasferencia.NumeroCuentaRetiro"></span>
         </div>
         <div class="form-outline mb-4 ">
             <input asp-for="_Trasferencia.NumeroCuentaDeposito" type="text" id="cuentaDeposito" class="form-control form-control-lg" />
             <label class="form-label text-center" for="cuentaDeposito">No. Cuenta destino</label>
+            <span class="text-danger" asp-validation-for="_Trasferencia.NumeroCuentaDeposito"></span>
         </div>
         <div class="form-outline mb-4">
-            <input asp-for="_Trasferencia.MontoParaDeposito" type="number" id="form4Example1" class="form-control form-control-lg" placeholder="$0.00" />
-            <label class="form-label text-center" for="form4Example1">Monto</label>
+            <input asp-for="_Trasferencia.MontoParaDeposito" type="number" id="monto" class="form-control form-control-lg" placeholder="$0.00" />
+            <label class="form-label text-center" for="monto">Monto</label>
+            <span class="text-danger" asp-validation-for="_Trasferencia.MontoParaDeposito"></span>
         </div>
         <div class="form-outline mb-4">
             <input asp-for="_Trasferencia.Detalles" type="text" id="Example1" class="form-control form-control-lg" />
             <label class="form-label text-center" for="Example1">Concepto</label>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block mb-4">Transferir</button>
+        <div class="alert alert-danger alert-dismissible fade show visually-hidden" role="alert">
+            <b class=" w-100  text-center " id="alertText">
+
+            </b>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button"
+                class="btn btn-primary btn-block mb-4" id="continua">
+            Continuar
+        </button>
+
         <a asp-page="/Dashboard" class="btn btn-block mb-4">Cancelar</a>
-    </form>
-</div>
+
+    </div>
 
 
 
 
-@*<div class="container-sm p-4 w-50 mt-5 rounded shadow-4">
-        <h4>Enviar pagos</h4>
-        <div class="input-group mt-4">
-            <input type="search"
-                   class="form-control rounded"
-                   placeholder="Search"
-                   aria-label="Search"
-                   aria-describedby="search-addon" />
-            <br />
-            <button type="button" class="btn btn-outline-primary">search</button>
+
+    <!-- Modal -->
+    <div class="modal fade"
+         id="exampleModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalles de trasferencia</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                        Volver
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
+</form>
 
-        <h4 class="mt-5">Contactos</h4>
-        <div class="list-group">
-            <a href="#"
-               class="list-group-item list-group-item-action"
-               aria-current="true">
-                Cras justo odio
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#"
-               class="list-group-item list-group-item-action disabled"
-               tabindex="-1"
-               aria-disabled="true">Vestibulum at eros</a>
-        </div>
-    </div>*@
+
+
 @section Scripts{
 
 
@@ -74,15 +91,80 @@
         @*$.ajax(
         url: '@Url.Action("","/")'
     )*@
-        var numeroCuentaDeposito='';
-        $('#cuentaDeposito').focusin(function () {
-            this.value=(numeroCuentaDeposito);
+        var datos;
+        var numeroCuentaDeposito = '';
+        $('#continua').click(function () {
+            if ($('#cuentaRetiro').val().trim().length < 10) {
+                $('b').html("Debe de seleccionar una cuenta origen.");
+                $('.alert').removeClass('visually-hidden');
+                setTimeout(function () { $('.alert').addClass('visually-hidden'); }, (20*1000));
+            } else if ($('#cuentaDeposito').val().trim().length < 16) {
+                $('b').html("Debe de digitar una cuenta destino.");
+                $('.alert').removeClass('visually-hidden');
+                setTimeout(function () { $('.alert').addClass('visually-hidden'); }, (20 * 1000));
+
+            } else if ($('#monto').val().trim().length < 1) {
+                $('b').html("Debe de digitar un monto para transferir.");
+                $('.alert').removeClass('visually-hidden');
+                setTimeout(function () { $('.alert').addClass('visually-hidden'); }, (20 * 1000));
+            }
+            else {
+                let montoRetiroSinImpuesto = parseFloat($('#monto').val()) * datos.resultado.valorCambioMoneda;
+                let costo = (montoRetiroSinImpuesto * 0.0015);
+                let costoTotal = (costo + montoRetiroSinImpuesto);
+                if (costoTotal > datos.resultado.montoDisponible) {
+                    $('b').html(`El costo total(${costoTotal.toFixed(2)}) de la transaccion es mayor al monto disponible(${datos.resultado.montoDisponible}) en tu cuenta.`);
+                    $('.alert').removeClass('visually-hidden');
+                    setTimeout(function () { $('.alert').addClass('visually-hidden'); }, (30 * 1000));
+                }
+                else {
+                    $('.modal-body').html(`
+                    <div >
+                        <div class="form-counter  mb-4">
+                            <label class="form-label">Monto a Enviar</label>
+                            <input type="text" class="form-control" disabled value="${$('#monto').val()}" />
+                        </div>
+                        ${((datos.resultado.valorCambioMoneda == 1) ? "" :
+                        `<div class="form-counter mb-4">
+                            <label class="form-label" for="cuentaRetiro">Costo Moneda(${datos.resultado.monedaSimbolo}) Destino</label>
+                            <input type="text"  class="form-control" disabled value="${datos.resultado.numeroCuentaMontoDisponible}" />
+                        </div>`)}
+                        <div class="form-counter mb-4">
+                            <label class="form-label" for="cuentaRetiro">Costo de Transacción</label>
+                            <input type="text"  class="form-control" disabled value="${costo.toFixed(2)}" />
+                        </div>
+                        <div class="form-counter mb-4">
+                            <label class="form-label" for="cuentaRetiro">Monto Total Retirar</label>
+                            <input type="text"  class="form-control" disabled value="${costoTotal.toFixed(2)}" />
+                        </div>
+                        
+
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Transferir</button>
+                    </div>`);
+
+                    $('#exampleModal').modal('show');
+                }
+
+            }
         });
-        $('#cuentaDeposito').blur(function () {
-            var transferencia = { "NumeroCuentaRetiro": $('#cuentaRetiro').val(), "NumeroCuentaDeposito": $('#cuentaDeposito').val() }
+        $('#cuentaDeposito').focusin(function () {
+            if ($('#cuentaRetiro').val().trim().length < 10) {
+                alert("Debe de seleccionar una cuenta origen");
+                $('#cuentaRetiro').focus();
+            }
+            else
+                this.value=(numeroCuentaDeposito);
+        });
+        $('#cuentaRetiro').focusout(Ajax);
+        $('#cuentaDeposito').blur(Ajax);
+
+
+
+        function Ajax() {
+            var transferencia = { "NumeroCuentaRetiro": $('#cuentaRetiro').val(), "NumeroCuentaDeposito": ( $('#cuentaDeposito').val()) }
             if (transferencia['NumeroCuentaRetiro'].length > 10 && transferencia['NumeroCuentaDeposito'].length > 10) {
-
-
+                transferencia.NumeroCuentaDeposito = (($('#cuentaDeposito').val().split(' ').length == 3) ? $('#cuentaDeposito').val().split(' ')[2] : $('#cuentaDeposito').val())
+                $('#cuentaDeposito').val(transferencia.NumeroCuentaDeposito);
                 $.ajax({
                     type: "POST",
                     url: "/Transferencia?handler=CuentaDeposito",
@@ -94,14 +176,18 @@
                         RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
                     }
                 }).done(function (data) {
-                    console.log(data);
-                    numeroCuentaDeposito = $('#cuentaDeposito').val();
-                    $('#cuentaDeposito').val(data.resultado.nombreApellido + ' ' + numeroCuentaDeposito)
+                    datos = data;
+                    if (data.mensaje == 'OK') {
+
+                        console.log(data);
+                        numeroCuentaDeposito = $('#cuentaDeposito').val();
+                        $('#cuentaDeposito').val(data.resultado.nombreApellido + ' ' + numeroCuentaDeposito)
+                    }
                 }).fail(function (data) {
                     console.log(data);
                 });
             }
-        });
+        }
 
     </script>
 }
